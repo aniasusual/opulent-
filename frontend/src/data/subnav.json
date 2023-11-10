@@ -1,0 +1,159 @@
+[
+    {
+        "id": "fineJewelery",
+        "name": "FINE JEWELERY",
+        "children": [
+            {
+                "heading": "Rings",
+                "id": "rings",
+                "items": [
+                    {
+                        "id": "stackable",
+                        "name": "Stackable",
+                        "href": "#",
+                        "icon": ""
+                    },
+                    {
+                        "id": "statement",
+                        "name": "Statement",
+                        "href": "#",
+                        "icon": ""
+                    }
+                ]
+            },
+            {
+                "heading": "Earrings",
+                "id": "earrings",
+                "items": [
+                    {
+                        "id": "Studs",
+                        "name": "Studs",
+                        "href": "#",
+                        "icon": ""
+                    },
+                    {
+                        "id": "drop&dangle",
+                        "name": "Drop and Dangle",
+                        "href": "#",
+                        "icon": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "engagementrings",
+        "name": "ENGAGEMENT RINGS",
+        "children": [
+            {
+                "heading": "Engagement rings",
+                "items": [
+                    {
+                        "id": "stackable",
+                        "name": "Stackable",
+                        "href": "#",
+                        "icon": ""
+                    },
+                    {
+                        "id": "statement",
+                        "name": "Statement",
+                        "href": "#",
+                        "icon": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "weddingbands",
+        "name": "WEDDING BANDS",
+        "children": [
+            {
+                "heading": "WEDDING BANDS",
+                "items": [
+                    {
+                        "id": "stackable",
+                        "name": "Stackable",
+                        "href": "#",
+                        "icon": ""
+                    },
+                    {
+                        "id": "statement",
+                        "name": "Statement",
+                        "href": "#",
+                        "icon": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "diamonds",
+        "name": "DIAMONDS",
+        "children": [
+            {
+                "heading": "DIAMONDS",
+                "items": [
+                    {
+                        "id": "stackable",
+                        "name": "Stackable",
+                        "href": "#",
+                        "icon": ""
+                    },
+                    {
+                        "id": "statement",
+                        "name": "Statement",
+                        "href": "#",
+                        "icon": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "gemstones",
+        "name": "GEM STONES",
+        "children": [
+            {
+                "heading": "RINGS",
+                "items": [
+                    {
+                        "id": "stackable",
+                        "name": "Stackable",
+                        "href": "#",
+                        "icon": ""
+                    },
+                    {
+                        "id": "statement",
+                        "name": "Statement",
+                        "href": "#",
+                        "icon": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "education",
+        "name": "EDUCATION",
+        "children": [
+            {
+                "heading": "EDUCATION",
+                "items": [
+                    {
+                        "id": "stackable",
+                        "name": "Stackable",
+                        "href": "#",
+                        "icon": ""
+                    },
+                    {
+                        "id": "statement",
+                        "name": "Statement",
+                        "href": "#",
+                        "icon": ""
+                    }
+                ]
+            }
+        ]
+    }
+]

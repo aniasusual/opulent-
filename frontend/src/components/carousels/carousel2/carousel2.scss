@@ -1,0 +1,44 @@
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #ffffff;
+  // height: 50vh;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+    div{
+        margin-top: 20px;
+        h2{
+          font-family: 'Public Sans', sans-serif;
+        }
+
+        a{
+          text-decoration: none;
+          color: black;
+          border-bottom: 1px solid black;
+        }
+
+        span{
+          font-family: 'Public Sans', sans-serif;
+        }
+
+    }
+
+  
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
