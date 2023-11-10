@@ -1,0 +1,20 @@
+.productContainer {
+    display: flex;
+    margin: 2vmax auto;
+    width: 80vw;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+
+}
+
+.productPage {
+    h1 {
+        text-align: center;
+        font-family: 'Public Sans', sans-serif;
+        font-size: 6vh;
+        font-weight: bold;
+        margin-top: 100px;
+        margin-bottom: 70px;
+    }
+}
