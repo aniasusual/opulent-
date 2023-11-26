@@ -25,7 +25,7 @@
 
 import { configureStore } from "@reduxjs/toolkit"
 import { productDetailsReducer, productsReducer } from "./reducers/productReducer";
-import { userReducer } from "./reducers/userReducer";
+import { userReducer, profileReducer } from "./reducers/userReducer";
 
 
 const store = configureStore({
@@ -33,7 +33,8 @@ const store = configureStore({
     reducer: {
         products: productsReducer,
         productDetails: productDetailsReducer,
-        user: userReducer
+        user: userReducer,
+        profile: profileReducer,
     }
 
 })

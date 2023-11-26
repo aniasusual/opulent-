@@ -28,7 +28,7 @@
     "react-rating-stars-component": "^2.2.0",
     "react-redux": "^7.2.9",
     "react-responsive-carousel": "^3.2.23",
-    "react-router-dom": "^6.18.0",
+    "react-router-dom": "^6.20.0",
     "react-scripts": "5.0.1",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
@@ -64,5 +64,5 @@
   "devDependencies": {
     "sass": "^1.69.3"
   },
-  "proxy": "http://192.168.221.99:4000"
+  "proxy": "http://192.168.91.99:4000"
 }

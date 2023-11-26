@@ -41,7 +41,7 @@ export default function App() {
                         return (
                             <SwiperSlide>
                                 <img src={image.url} alt=""/>
-                                <button>buy item</button>
+                                <button>Buy item</button>
                             </SwiperSlide>
                         )
                     })
