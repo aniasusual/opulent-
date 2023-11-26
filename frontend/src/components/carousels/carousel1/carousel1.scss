@@ -40,13 +40,21 @@
   button{
     position: absolute;
     top: 80%;
-    // background-color: black;
+    background-color: white;
     z-index: 1;
-    background-color: transparent;
+    border-radius: 10px;
+    border: none;
+    // background-color: transparent;
     // color: white;
     height: 40px;
     width: 80px;
     cursor: pointer;
+    transition: all ease-in-out 0.2s;
+  }
+
+  button:hover{
+    background-color: black;
+    color: white
   }
 }
 

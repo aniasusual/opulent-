@@ -8,9 +8,12 @@ import { HiOutlineShoppingBag } from 'react-icons/hi';
 import records from "../../data/subnav.json";
 
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
+
 
 import './navbar.scss'
 import HamburgerMenu from '../hamburgerMenu/HamburgerMenu';
+import UserOptions from '../layout/header/UserOptions/UserOptions';
 
 
 const Navbar = ({ history }) => {
@@ -25,16 +28,18 @@ const Navbar = ({ history }) => {
 
     const [keyword, setKeyword] = useState("");
 
+    const { isAuthenticated, user } = useSelector((state) => state.user);
+
     const handleSearchIconClick = () => {
         setIsSearchOpen(!isSearchOpen);
     };
 
     const handleSubmitSearch = () => {
 
-        if(keyword.trim()){
+        if (keyword.trim()) {
             navigate(`/products/${keyword}`);
         }
-        else{
+        else {
             navigate("/shop");
         }
     }
@@ -80,7 +85,7 @@ const Navbar = ({ history }) => {
                     </div>
 
                     <div className={`search-bar ${isSearchOpen ? 'open' : ''}`}>
-                        <input type="text" placeholder="Search" onChange={(e)=> setKeyword(e.target.value)} />
+                        <input type="text" placeholder="Search" onChange={(e) => setKeyword(e.target.value)} />
                         <button type='submit' onClick={handleSubmitSearch} className='searchButton'>Search</button>
                         {/* Add search functionality here */}
                     </div>
@@ -94,11 +99,25 @@ const Navbar = ({ history }) => {
                     <Link to='/'><h1 id='logotext'>OPULENT ORNAMENTS</h1></Link>
                 </div>
 
-
                 <div className="rightNav">
-                    <Link to="/login"><div className='user-action'><AiOutlineUser size={20} /></div></Link>
-                    <Link><div className='user-action'><HiOutlineShoppingBag size={20} /></div></Link>
+                    {isAuthenticated ? (
+
+                        <div className='cartAndDial'>
+                            <Link><div className='user-action'><HiOutlineShoppingBag size={25} /></div></Link>
+                            <div className="dial">
+                                <UserOptions user={user} />
+                            </div>
+                        </div>
+
+                    )
+                        : (
+                            <Link to="/login"><div className='user-action'><AiOutlineUser size={25} /></div></Link>
+                        )
+                    }
                 </div>
+
+
+
 
             </div>
 
