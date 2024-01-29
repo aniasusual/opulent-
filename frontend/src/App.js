@@ -17,6 +17,8 @@ import Profile from "./pages/Profile/Profile.jsx";
 // import ProtectedRoute from "./components/route/ProtectedRoute.js";
 import UpdateProfile from "./pages/updateProfile/UpdateProfile.jsx";
 import UpdatePassword from "./pages/updatePassword/UpdatePassword.jsx";
+import ForgotPassword from "./pages/forgotPassword/ForgotPassword.jsx"
+import ResetPassword from "./pages/resetPassword/ResetPassword.jsx";
 
 function App() {
 
@@ -44,6 +46,8 @@ function App() {
         {!loading && isAuthenticated && <Route path="/account" element={<Profile />} />}
         {!loading && isAuthenticated && <Route path="/me/update" element={<UpdateProfile />} />}
         {!loading && isAuthenticated && <Route path="/password/update" element={<UpdatePassword />} />}
+        {!loading && <Route path="/password/forgot" element={<ForgotPassword />} />}
+        {!loading && <Route path="/password/reset/:token" element={<ResetPassword />} />}
 
       </Routes>
 
