@@ -25,7 +25,7 @@
 
 import { configureStore } from "@reduxjs/toolkit"
 import { productDetailsReducer, productsReducer } from "./reducers/productReducer";
-import { userReducer, profileReducer } from "./reducers/userReducer";
+import { userReducer, profileReducer, forgotPasswordReducer } from "./reducers/userReducer";
 
 
 const store = configureStore({
@@ -35,6 +35,7 @@ const store = configureStore({
         productDetails: productDetailsReducer,
         user: userReducer,
         profile: profileReducer,
+        forgotPassword: forgotPasswordReducer
     }
 
 })

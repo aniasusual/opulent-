@@ -23,9 +23,8 @@ app.use("/api/v1", userRoute);
 app.use("/api/v1", orderRoute);
 
 
-if(process.env.NODE_ENV !== "production")
-{
-    require("dotenv").config({path: "Backend/config/config.env"});
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config({ path: "Backend/config/config.env" });
 }
 
 app.use(errorMiddleware);

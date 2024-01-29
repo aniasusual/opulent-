@@ -32,7 +32,7 @@ exports.registerUser = async function (req, res, next) {
         sendToken(user, 201, res);
 
         if (!user) {
-            
+
             return next(new ErrorHandler("user creation failed", 500));
         }
     } catch (error) {
@@ -103,7 +103,8 @@ exports.forgotPassword = async function (req, res, next) {
 
     await user.save({ validateBeforeSave: false });
 
-    const resetPasswordURL = `${req.protocol}://${req.get("host")}/api/v1/password/reset/${resetToken}`;
+    // const resetPasswordURL = `${req.protocol}://${req.get("host")}/api/v1/password/reset/${resetToken}`;
+    const resetPasswordURL = `${process.env.FRONTEND_URL}/api/v1/password/reset/${resetToken}`;
 
     const message = `Your password reset token is :- \n\n ${resetPasswordURL} \n\n If you have not requested this email then please ignore it`;
 

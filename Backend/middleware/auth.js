@@ -5,17 +5,20 @@ const ErrorHandler = require("../utils/errorHandler");
 exports.isAuthenticated = async function (req, res, next) {
     try {
         const token = await req.cookies.token;
-
+        // console.log(token)
         // console.log(token);
         // this will return id
-        const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+        // if(token)
+        // {
+          const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+          req.user = await userModel.findById(decodedData.id);
+          console.log(req.user);
+        // }
 
-        req.user = await userModel.findById(decodedData.id);
-        console.log(req.user);
         next();
 
     } catch (error) {
-        console.log("error occured: ", error.message);
+        console.log("loda error occured: ", error.message);
     }
 }
 
