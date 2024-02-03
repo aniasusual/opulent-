@@ -3,7 +3,7 @@ const cookieParser = require("cookie-parser");
 const errorMiddleware = require("./middleware/error");
 const bodyParser = require("body-parser");
 // const fileUpload = require("express-fileupload")
-
+const dotenv = require("dotenv");
 const app = express();
 
 
@@ -16,12 +16,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const productRoute = require("./Routes/productRoute");
 const userRoute = require("./Routes/userRoute");
 const orderRoute = require("./Routes/orderRoute");
+const paymentRoute = require("./Routes/paymentRoute");
 
 
 app.use("/api/v1", productRoute)
 app.use("/api/v1", userRoute);
 app.use("/api/v1", orderRoute);
-
+app.use("/api/v1", paymentRoute);
 
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config({ path: "Backend/config/config.env" });

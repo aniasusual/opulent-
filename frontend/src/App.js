@@ -19,6 +19,11 @@ import UpdateProfile from "./pages/updateProfile/UpdateProfile.jsx";
 import UpdatePassword from "./pages/updatePassword/UpdatePassword.jsx";
 import ForgotPassword from "./pages/forgotPassword/ForgotPassword.jsx"
 import ResetPassword from "./pages/resetPassword/ResetPassword.jsx";
+import Cart from "./pages/cart/Cart.jsx";
+import Shipping from "./pages/shipping/Shipping.jsx";
+import ConfirmOrder from "./pages/confirmOrder/ConfirmOrder.jsx";
+import axios from "axios";
+import { useState } from "react";
 
 function App() {
 
@@ -26,7 +31,13 @@ function App() {
     store.dispatch(loadUser());
   }, [])
 
+  const [stripeApiKey, setStripeApiKey] = useState("");
 
+  async function getStripeApiKey() {
+    const { data } = await axios.get("/api/v1/stripeapikey");
+
+    setStripeApiKey(data.stripeApiKey);
+  }
 
   const { loading, isAuthenticated } = useSelector((state) => state.user);
 
@@ -46,6 +57,9 @@ function App() {
         {!loading && isAuthenticated && <Route path="/account" element={<Profile />} />}
         {!loading && isAuthenticated && <Route path="/me/update" element={<UpdateProfile />} />}
         {!loading && isAuthenticated && <Route path="/password/update" element={<UpdatePassword />} />}
+        {!loading && isAuthenticated && <Route path="/cart" element={<Cart />} />}
+        {!loading && isAuthenticated && <Route path="/shipping" element={<Shipping />} />}
+        {!loading && isAuthenticated && <Route path="/order/confirm" element={<ConfirmOrder />} />}
         {!loading && <Route path="/password/forgot" element={<ForgotPassword />} />}
         {!loading && <Route path="/password/reset/:token" element={<ResetPassword />} />}
 
