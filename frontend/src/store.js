@@ -26,7 +26,18 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { productDetailsReducer, productsReducer } from "./reducers/productReducer";
 import { userReducer, profileReducer, forgotPasswordReducer } from "./reducers/userReducer";
+import { cartReducer } from "./reducers/cartReducer";
 
+let initialState = {
+    cart: {
+        cartItems: localStorage.getItem("cartItems")
+            ? JSON.parse(localStorage.getItem("cartItems"))
+            : [],
+        shippingInfo: localStorage.getItem("shippingInfo")
+            ? JSON.parse(localStorage.getItem("shippingInfo"))
+            : {},
+    },
+}
 
 const store = configureStore({
 
@@ -35,8 +46,10 @@ const store = configureStore({
         productDetails: productDetailsReducer,
         user: userReducer,
         profile: profileReducer,
-        forgotPassword: forgotPasswordReducer
-    }
+        forgotPassword: forgotPasswordReducer,
+        cart: cartReducer
+    },
+    preloadedState: initialState,
 
 })
 

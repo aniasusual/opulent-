@@ -1,0 +1,68 @@
+.CartItemCard {
+  display: flex;
+  padding-bottom: 200px;
+  height: 8vmax;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.CartItemCard > a > img {
+  width: 5vmax;
+  height: 20vh;
+  width: 30vw;
+  object-fit: cover;
+  border-radius: 7px;
+}
+
+.CartItemCard > div {
+  display: flex;
+  margin: 0.3vmax 1vmax;
+  flex-direction: column;
+  text-decoration: none; /* Removed text-decoration property here */
+}
+
+.link {
+  text-decoration: none; /* Add this for Link component */
+}
+
+.CartItemCard > div > span {
+  font: 300 0.9vmax "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS";
+  color: rgb(255, 0, 0);
+  margin: 2px;
+}
+
+.CartItemCard > div > a > p {
+  color: black;
+  text-transform: uppercase;
+  font: 100 1.2vmax "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS";
+  margin: 2px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .CartItemCard {
+    padding: 3vmax;
+    height: 25vmax;
+  }
+  .CartItemCard > img {
+    width: 10vmax;
+    height: 10vh;
+    width: 15vw;
+  }
+
+  .CartItemCard > div {
+    margin: 1vmax 2vmax;
+  }
+
+  .link {
+    font: 300 2vmax "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS";
+  }
+
+  .CartItemCard > div > span {
+    font: 300 1.9vmax "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS";
+  }
+
+  .CartItemCard > div > p {
+    font: 100 1.8vmax "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS";
+  }
+}

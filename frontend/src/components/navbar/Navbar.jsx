@@ -14,7 +14,7 @@ import "./navbar.scss";
 import HamburgerMenu from "../hamburgerMenu/HamburgerMenu";
 import UserOptions from "../layout/header/UserOptions/UserOptions";
 
-const Navbar = ({ history }) => {
+const Navbar = () => {
   const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(reducer, true);
@@ -105,7 +105,7 @@ const Navbar = ({ history }) => {
         <div className="rightNav">
           {isAuthenticated ? (
             <div className="cartAndDial">
-              <Link>
+              <Link to="/cart">
                 <div className="user-action">
                   <HiOutlineShoppingBag size={25} />
                 </div>
@@ -115,6 +115,18 @@ const Navbar = ({ history }) => {
               </div>
             </div>
           ) : (
+            // <div>
+            //   <Link to="/cart">
+            //     <div className="user-action">
+            //       <HiOutlineShoppingBag size={25} />
+            //     </div>
+            //   </Link>
+            //   <Link to="/login">
+            //     <div className="user-action">
+            //       <AiOutlineUser size={25} />
+            //     </div>
+            //   </Link>
+            // </div>
             <Link to="/login">
               <div className="user-action">
                 <AiOutlineUser size={25} />

@@ -5,7 +5,7 @@
   padding: 6vmax;
   box-sizing: border-box;
   display: flex;
-  font-family: 'Public Sans', sans-serif;
+  font-family: "Public Sans", sans-serif;
   position: relative;
 }
 
@@ -18,20 +18,23 @@
   padding: 2vmax;
   box-sizing: border-box;
   border: 1px solid white;
+  margin: 20px;
 }
 
 .ProductDetails > div:last-child {
   align-items: flex-start;
 }
 
-.carouselProduct{
+.carouselProduct {
   width: 80vw;
 }
 
 .CarouselImage {
   object-fit: cover;
-  width: 20vmax;
-  
+  // width: 20vmax;
+  width: 100%;
+  height: 50vh;
+  border-radius: 10px;
 }
 
 .detailsBlock-1 > h2 {
@@ -163,7 +166,7 @@
 
 .reviewsHeading {
   color: #000000be;
-  font: 500 1.4vmax ;
+  font: 500 1.4vmax;
   text-align: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.226);
   padding: 1vmax;
@@ -278,14 +281,14 @@
   }
 
   .submitReview {
-    font: 500 1.7vmax ;
+    font: 500 1.7vmax;
     padding: 1.5vmax;
     width: 20vmax;
     margin: 3vmax 0;
   }
 
   .reviewCard > p {
-    font: 600 3vw ;
+    font: 600 3vw;
   }
   .reviewCardComment {
     font: 300 5vw cursive;
