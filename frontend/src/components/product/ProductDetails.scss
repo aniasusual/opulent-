@@ -1,5 +1,5 @@
 .ProductDetails {
-  background-color: rgb(255, 255, 255);
+  // background-color: rgb(255, 255, 255);
   width: 100vw;
   max-width: 100%;
   padding: 6vmax;
@@ -7,6 +7,7 @@
   display: flex;
   font-family: "Public Sans", sans-serif;
   position: relative;
+  // z-index: 0;
 }
 
 .ProductDetails > div {
@@ -104,16 +105,18 @@
   cursor: pointer;
   color: white;
   transition: all 0.5s;
-  background-color: tomato;
+  background-color: rgb(0, 0, 0);
   font: 500 0.7vmax;
-  border-radius: 20px;
+  border-radius: 7px;
   padding: 0.5vmax 2vmax;
   margin: 1vmax;
   outline: none;
 }
 
 .detailsBlock-3-1 > button:last-child:hover {
-  background-color: rgb(214, 84, 61);
+  background-color: white;
+  color: black;
+  border: 1px solid black;
 }
 
 .detailsBlock-3 > p {

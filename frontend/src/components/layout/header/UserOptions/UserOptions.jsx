@@ -1,18 +1,16 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState } from "react";
 import "./userOptions.scss";
-import { SpeedDial, SpeedDialAction } from '@material-ui/lab';
+import { SpeedDial, SpeedDialAction } from "@material-ui/lab";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ListAltIcon from "@material-ui/icons/ListAlt";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
-import { logout } from '../../../../actions/userAction';
-
+import { logout } from "../../../../actions/userAction";
 
 const UserOptions = ({ user }) => {
-
   const [openDial, setOpenDial] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,24 +27,24 @@ const UserOptions = ({ user }) => {
       icon: <DashboardIcon />,
       name: "Dashboard",
       func: dashboard,
-    })
+    });
   }
 
   function dashboard() {
-    navigate("/dashboard")
+    navigate("/dashboard");
   }
 
   function orders() {
-    navigate("/orders")
+    navigate("/orders");
   }
 
   function account() {
-    navigate("/account")
+    navigate("/account");
   }
 
   function logoutUser() {
     dispatch(logout());
-    navigate("/")
+    navigate("/");
     alert.success("Logout successfully");
   }
 
@@ -54,16 +52,15 @@ const UserOptions = ({ user }) => {
     <Fragment>
       <SpeedDial
         ariaLabel="SpeedDial tooltip example"
-        onClose={() => setOpenDial(false)}
-        onOpen={() => setOpenDial(true)}
+        // onClose={() => setOpenDial(false)}
+        onClick={() => setOpenDial(!openDial)}
+        // onOpen={() => setOpenDial(true)}
         open={openDial}
-        direction='down'
-        icon={<img
-          className='speedDialIcon'
-          src='/Profile.png'
-          alt='Profile' />}
+        direction="down"
+        icon={
+          <img className="speedDialIcon" src="/Profile.png" alt="Profile" />
+        }
       >
-
         {options.map((item) => (
           <SpeedDialAction
             icon={item.icon}
@@ -73,7 +70,7 @@ const UserOptions = ({ user }) => {
         ))}
       </SpeedDial>
     </Fragment>
-  )
-}
+  );
+};
 
-export default UserOptions
+export default UserOptions;

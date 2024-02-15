@@ -2,14 +2,19 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const errorMiddleware = require("./middleware/error");
 const bodyParser = require("body-parser");
+// const cors = require("cors");
 // const fileUpload = require("express-fileupload")
-const dotenv = require("dotenv");
 const app = express();
 
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(
+//     cors({
+//         origin: process.env.FRONTEND_URL
+//     })
+// )
 // app.use(fileUpload());
 
 // Routes imports

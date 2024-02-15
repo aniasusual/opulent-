@@ -33,8 +33,32 @@ const ConfirmOrder = () => {
 
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
 
-    // history.push("/process/payment");
-    navigate("/process/payment");
+    fetch("/api/v1/payment/process", {
+      method: "Post",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        items: cartItems,
+        userData: user,
+        shippingInfo: shippingInfo,
+      }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return res.json().then((json) => Promise.reject(json));
+      })
+      .then(({ url, client_secret }) => {
+        console.log(client_secret);
+        window.location = url;
+      })
+      .catch((e) => {
+        console.error(e.error);
+      });
+
+    // navigate("/payment/process");
   };
 
   return (
