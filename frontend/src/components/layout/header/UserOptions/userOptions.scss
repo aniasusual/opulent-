@@ -3,9 +3,10 @@
 //     top: 1px;
 
 //   }
-  
-  .speedDialIcon {
-    width: 56px;
-    height: 56px;
-    border-radius: 100%;
-  }
+
+.speedDialIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 100%;
+  z-index: 2;
+}

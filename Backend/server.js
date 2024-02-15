@@ -1,13 +1,16 @@
 const app = require("./app");
 // const cloudinary = require("cloudinary");
 const { connectDatabase } = require("./config/database");
-const dotenv = require("dotenv");
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
   console.log(`Error: ${err.message}`);
   console.log(`Shutting down the server due to Uncaught Exception`);
   process.exit(1);
 });
+
+// const stripe = require("stripe")('REDACTED_SECRET');
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
 
 // Config
 if (process.env.NODE_ENV !== "PRODUCTION") {

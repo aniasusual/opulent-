@@ -22,22 +22,29 @@ import ResetPassword from "./pages/resetPassword/ResetPassword.jsx";
 import Cart from "./pages/cart/Cart.jsx";
 import Shipping from "./pages/shipping/Shipping.jsx";
 import ConfirmOrder from "./pages/confirmOrder/ConfirmOrder.jsx";
-import axios from "axios";
-import { useState } from "react";
+// import axios from "axios";
+// import { useState } from "react";
+// import Payment from "./pages/payment/Payment.jsx";
+// import PaymentSuccess from "./pages/PaymentSuccess/PaymentSuccess.jsx"
+// import { Elements } from "@stripe/react-stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 
 function App() {
 
   useEffect(() => {
     store.dispatch(loadUser());
+    // getStripeApiKey();
   }, [])
 
-  const [stripeApiKey, setStripeApiKey] = useState("");
+  // const [stripeApiKey, setStripeApiKey] = useState("");
 
-  async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/stripeapikey");
+  // async function getStripeApiKey() {
+  //   const { data } = await axios.get("/api/v1/stripeapikey");
 
-    setStripeApiKey(data.stripeApiKey);
-  }
+  //   setStripeApiKey(data.stripeApiKey);
+  //   console.log(stripeApiKey);
+
+  // }
 
   const { loading, isAuthenticated } = useSelector((state) => state.user);
 
@@ -62,6 +69,19 @@ function App() {
         {!loading && isAuthenticated && <Route path="/order/confirm" element={<ConfirmOrder />} />}
         {!loading && <Route path="/password/forgot" element={<ForgotPassword />} />}
         {!loading && <Route path="/password/reset/:token" element={<ResetPassword />} />}
+        {/* {stripeApiKey && (
+          <Route
+            path="/payment/process"
+            element={(
+              <Elements stripe={loadStripe(stripeApiKey)}>
+                <Payment />
+              </Elements>
+            )}
+          />
+        )} */}
+        {/* {!loading && <Route path="/payment/process" element={<Payment />} />} */}
+        {/* {!loading && <Route path="/payment/success" element={<PaymentSuccess />} />} */}
+
 
       </Routes>
 
