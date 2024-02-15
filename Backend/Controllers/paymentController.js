@@ -41,6 +41,7 @@ exports.processPayment = async (req, res, next) => {
 
                 }
             }),
+            billing_address_collection: "required",
 
             success_url: `${process.env.FRONTEND_URL}/payment/success`,
             cancel_url: `${process.env.FRONTEND_URL}/cart`
