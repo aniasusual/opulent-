@@ -50,15 +50,12 @@ const ConfirmOrder = () => {
         }
         return res.json().then((json) => Promise.reject(json));
       })
-      .then(({ url, client_secret }) => {
-        console.log(client_secret);
+      .then(({ url }) => {
         window.location = url;
       })
       .catch((e) => {
         console.error(e.error);
       });
-
-    // navigate("/payment/process");
   };
 
   return (

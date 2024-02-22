@@ -25,7 +25,7 @@ import ConfirmOrder from "./pages/confirmOrder/ConfirmOrder.jsx";
 // import axios from "axios";
 // import { useState } from "react";
 // import Payment from "./pages/payment/Payment.jsx";
-// import PaymentSuccess from "./pages/PaymentSuccess/PaymentSuccess.jsx"
+import PaymentSuccess from "./pages/PaymentSuccess/PaymentSuccess.jsx"
 // import { Elements } from "@stripe/react-stripe-js";
 // import { loadStripe } from "@stripe/stripe-js";
 
@@ -80,7 +80,7 @@ function App() {
           />
         )} */}
         {/* {!loading && <Route path="/payment/process" element={<Payment />} />} */}
-        {/* {!loading && <Route path="/payment/success" element={<PaymentSuccess />} />} */}
+        {!loading && <Route path="/payment/success" element={<PaymentSuccess />} />}
 
 
       </Routes>

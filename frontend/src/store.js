@@ -27,6 +27,7 @@ import { configureStore } from "@reduxjs/toolkit"
 import { productDetailsReducer, productsReducer } from "./reducers/productReducer";
 import { userReducer, profileReducer, forgotPasswordReducer } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
+import { newOrderReducer } from "./reducers/orderReducer";
 
 let initialState = {
     cart: {
@@ -47,7 +48,8 @@ const store = configureStore({
         user: userReducer,
         profile: profileReducer,
         forgotPassword: forgotPasswordReducer,
-        cart: cartReducer
+        cart: cartReducer,
+        newOrder: newOrderReducer
     },
     preloadedState: initialState,
 
