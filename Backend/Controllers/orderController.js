@@ -3,33 +3,58 @@ const productModel = require("../models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
 
 // Create new Order
-exports.newOrder = async function (req, res, next) {
+// exports.newOrder = async function (req, res, next) {
 
-    try {
-        const { shippingInfo, orderItems, paymentInfo, itemsPrice, taxPrice, shippingPrice, totalPrice } = req.body;
+//     try {
+//         const { shippingInfo, orderItems, paymentInfo, itemsPrice, taxPrice, shippingPrice, totalPrice } = req.body;
 
-        const order = await orderModel.create({
-            shippingInfo,
-            orderItems,
-            paymentInfo,
-            itemsPrice,
-            taxPrice,
-            shippingPrice,
-            totalPrice,
-            paidAt: Date.now(),
-            user: req.user._id,
-        });
+//         const order = await orderModel.create({
+//             shippingInfo,
+//             orderItems,
+//             paymentInfo,
+//             itemsPrice,
+//             taxPrice,
+//             shippingPrice,
+//             totalPrice,
+//             paidAt: Date.now(),
+//             user: req.user._id,
+//         });
 
-        res.status(201).json({
-            success: true,
-            order,
-        });
-    } catch (error) {
-        console.log("Failed to create product due to following error: ", error);
-    }
+//         res.status(201).json({
+//             success: true,
+//             order,
+//         });
+//     } catch (error) {
+//         console.log("Failed to create product due to following error: ", error);
+//     }
 
 
-};
+// };
+
+exports.newOrder = function (customer, data) {
+
+    const items = JSON.parse(customer.metadata.cart);
+    // console.log("cart items", items);
+    return orderModel.create({
+        userId: customer.metadata.userId,
+        customerId: data.customer,
+        paymentIntentId: data.payment_intent,
+        orderItems: items,
+        itemsPrice: data.amount_subtotal,
+        totalPrice: data.amount_total,
+        shippingInfo: data.customer_details,
+        payment_status: data.payment_status,
+        paidAt: Date.now(),
+    }).then((order) => {
+        // console.log("processed order :", order);
+        // console.log("processed order :", typeof (order));
+        return order;
+    }).catch((err) => {
+        console.log("error at creating order: ", err);
+    })
+
+
+}
 
 //Get single order ------ ADMIN
 exports.getSingleOrder = async function (req, res, next) {

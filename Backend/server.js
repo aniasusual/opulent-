@@ -1,6 +1,8 @@
 const app = require("./app");
 // const cloudinary = require("cloudinary");
 const { connectDatabase } = require("./config/database");
+const bodyParser = require("body-parser");
+
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
   console.log(`Error: ${err.message}`);
@@ -8,14 +10,20 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-// const stripe = require("stripe")('REDACTED_SECRET');
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-
-
 // Config
 if (process.env.NODE_ENV !== "PRODUCTION") {
   require("dotenv").config({ path: "backend/config/config.env" });
 }
+
+app.use(
+  bodyParser.json({
+    verify: function (req, res, buf) {
+      req.rawBody = buf;
+    }
+  })
+);
+
+app.use(bodyParser.json());
 
 // Connecting to database
 connectDatabase();
