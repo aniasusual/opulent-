@@ -33,8 +33,17 @@ const ErrorHandler = require("../utils/errorHandler");
 
 exports.newOrder = function (customer, data) {
 
-    const items = JSON.parse(customer.metadata.cart);
-    // console.log("cart items", items);
+    // const items = JSON.parse(customer.metadata.cart);
+    let items;
+    try {
+        // Attempt to parse the cart string into an array of objects
+        items = JSON.parse(customer.metadata.cart);
+    } catch (error) {
+        console.error("Error parsing cart string:", error);
+        // If parsing fails, set items to an empty array
+        items = [];
+    }
+
     return orderModel.create({
         userId: customer.metadata.userId,
         customerId: data.customer,
@@ -50,7 +59,7 @@ exports.newOrder = function (customer, data) {
         // console.log("processed order :", typeof (order));
         return order;
     }).catch((err) => {
-        console.log("error at creating order: ", err);
+        console.log("error at creating order: ", err.message);
     })
 
 
@@ -59,7 +68,9 @@ exports.newOrder = function (customer, data) {
 //Get single order ------ ADMIN
 exports.getSingleOrder = async function (req, res, next) {
 
-    const order = await orderModel.findById(req.params.id).populate("user", "name email");
+    // const order = await orderModel.findById(req.params.id).populate("userId", "shippingInfo[name] shippingInfo[email]");
+    const order = await orderModel.findById(req.params.id)
+    console.log("order in orderController: ", order)
 
     if (!order) {
         return next(new ErrorHandler("No order found", 401));
@@ -76,8 +87,9 @@ exports.getSingleOrder = async function (req, res, next) {
 exports.myOrders = async function (req, res, next) {
 
     try {
-        const orders = await orderModel.find({ user: req.user._id });
+        const orders = await orderModel.find({ userId: req.user._id });
 
+        // console.log(orders);
         if (!orders) {
             res.json({
                 message: "No orders found!"

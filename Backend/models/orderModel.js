@@ -41,34 +41,35 @@ const orderSchema = new mongoose.Schema({
   //   },
   // },
   shippingInfo: { type: Object, required: true },
-  // orderItems: [
-  //   {
-  //     name: {
-  //       type: String,
-  //       required: true,
-  //     },
-  //     price: {
-  //       type: Number,
-  //       required: true,
-  //     },
-  //     quantity: {
-  //       type: Number,
-  //       required: true,
-  //     },
-  //     image: {
-  //       type: String,
-  //       // required: true,
-  //     },
-  //     product: {
-  //       type: mongoose.Schema.ObjectId,
-  //       ref: "ProductModel",
-  //       required: true,
-  //     },
-  //   },
-  // ],
+
   orderItems: [
-    { productId: { type: String }, quantity: { type: Number, default: 1 } },
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      price: {
+        type: Number,
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+      },
+      image: {
+        type: String,
+        // required: true,
+      },
+      product: {
+        type: mongoose.Schema.ObjectId,
+        ref: "ProductModel",
+        required: true,
+      },
+    },
   ],
+  // orderItems: [
+  //   { productId: { type: String }, quantity: { type: Number, default: 1 } },
+  // ],
   // user: {
   //   type: mongoose.Schema.ObjectId,
   //   ref: "UserModel",

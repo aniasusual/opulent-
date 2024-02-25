@@ -1,0 +1,87 @@
+.ordersHeading {
+  text-align: center;
+  margin-top: 30px;
+  font: 100 3vmax "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS";
+}
+.myOrdersPage {
+  width: 100vw;
+  max-width: 100%;
+  padding: 0 7vmax;
+  box-sizing: border-box;
+  // background-color: rgb(235, 235, 235);
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+#myOrdersHeading {
+  text-align: center;
+  font: 400 1.2vmax "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS";
+  padding: 0.5vmax;
+  box-sizing: border-box;
+  color: rgb(255, 255, 255);
+  transition: all 0.5s;
+  background-color: rgb(255, 252, 252);
+}
+
+.myOrdersTable {
+  background-color: white;
+}
+
+.myOrdersTable div {
+  font: 100 1vmax "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS";
+  color: rgba(0, 0, 0, 0.678);
+  border: none;
+}
+
+.myOrdersTable a {
+  color: rgba(0, 0, 0, 0.527);
+  transition: all 0.5s;
+}
+
+.myOrdersTable a:hover {
+  color: rgb(0, 0, 0);
+}
+
+.MuiDataGrid-columnHeader {
+  background-color: rgb(255, 255, 255);
+  padding: 1vmax !important;
+}
+
+.MuiDataGrid-columnHeader div {
+  color: rgb(99, 99, 99);
+  font: 200 1.1vmax "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS" !important;
+}
+
+.MuiDataGrid-iconSeparator {
+  display: none !important;
+}
+
+@media screen and (max-width: 600px) {
+  .myOrdersPage {
+    padding: 0;
+    height: 93vh;
+  }
+
+  #myOrdersHeading {
+    font: 400 2.2vmax "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS";
+    padding: 4vw;
+  }
+
+  .myOrdersTable div {
+    font: 300 4vw "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS";
+  }
+
+  .MuiDataGrid-columnHeader {
+    padding: 20px !important;
+  }
+
+  .MuiDataGrid-columnHeader div {
+    font: 200 5vw "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS" !important;
+  }
+}
