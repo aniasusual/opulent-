@@ -15,11 +15,11 @@ exports.returnNewOrder = (req, res) => {
 
 exports.processPayment = async (req, res) => {
 
-    console.log(req.body.userData._id);
-
+    // console.log(req.body.userData._id);
     const customer = await stripe.customers.create({
         metadata: {
             userId: req.body.userData._id,
+            // cart: JSON.stringify(req.body.items.toString()),
             cart: JSON.stringify(req.body.items),
             // shippingInfo: JSON.stringify(req.body.shippingInfo),
             user: JSON.stringify(req.body.userData)

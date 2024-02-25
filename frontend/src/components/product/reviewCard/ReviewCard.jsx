@@ -4,14 +4,10 @@ import profilePng from "../../../data/Profile.png";
 
 const ReviewCard = ({ review }) => {
   const options = {
-    edit: false,
-    color: "rgba(20, 20, 20,0.1)",
-    activeColor: "tomato",
-    size: window.innerWidth < 600 ? 10 : 10,
     value: review.rating,
-    isHalf: true
-
-  }
+    readOnly: true,
+    precision: 0.5,
+  };
 
   return (
     <div className="reviewCard">

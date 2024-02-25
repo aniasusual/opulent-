@@ -7,6 +7,11 @@ import {
     PRODUCT_DETAILS_FAIL,
     PRODUCT_DETAILS_SUCCESS,
 
+    NEW_REVIEW_REQUEST,
+    NEW_REVIEW_SUCCESS,
+    NEW_REVIEW_FAIL,
+    NEW_REVIEW_RESET,
+
     CLEAR_ERRORS
 } from "../constants/productConstants";
 
@@ -73,6 +78,47 @@ export const productDetailsReducer = createReducer({ product: {} }, {
         return {
             loading: false,
             error: action.payload,
+        };
+    },
+
+    [CLEAR_ERRORS]: (state, action) => {
+        return {
+            ...state,
+            error: null,
+        };
+    },
+
+
+})
+
+export const newReviewReducer = createReducer({}, {
+
+    [NEW_REVIEW_REQUEST]: (state, action) => {
+        return {
+            ...state,
+            loading: true,
+        };
+    },
+
+    [NEW_REVIEW_SUCCESS]: (state, action) => {
+        return {
+            loading: false,
+            success: action.payload,
+        };
+    },
+
+    [NEW_REVIEW_FAIL]: (state, action) => {
+        return {
+            ...state,
+            loading: false,
+            error: action.payload,
+        };
+    },
+
+    [NEW_REVIEW_RESET]: (state, action) => {
+        return {
+            ...state,
+            success: false,
         };
     },
 
