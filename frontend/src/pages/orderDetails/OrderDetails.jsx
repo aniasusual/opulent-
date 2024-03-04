@@ -97,8 +97,8 @@ const OrderDetails = () => {
                 {order.orderItems &&
                   order.orderItems.map((item) => (
                     <div key={item.product}>
-                      <img src={item.image} alt="Product" />
                       <Link to={`/product/${item.product}`}>
+                        <img src={item.image} alt="Product" />
                         {item.name}
                       </Link>{" "}
                       <span>

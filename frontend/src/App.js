@@ -26,6 +26,7 @@ import PaymentSuccess from "./pages/PaymentSuccess/PaymentSuccess.jsx"
 import MyOrders from "./pages/Myorders/MyOrders.jsx";
 import { Navigate } from "react-router-dom";
 import OrderDetails from "./pages/orderDetails/OrderDetails.jsx";
+import Dashboard from "./pages/admin/dashboard/Dashboard.jsx";
 
 function App() {
 
@@ -56,6 +57,9 @@ function App() {
         {!loading && <Route path="/shipping" element={!isAuthenticated ? <Navigate to="/login" /> : <Shipping />} />}
         {!loading && <Route path="/order/confirm" element={!isAuthenticated ? <Navigate to="/login" /> : <ConfirmOrder />} />}
         {!loading && <Route path="/order/:id" element={!isAuthenticated ? <Navigate to="/login" /> : <OrderDetails />} />}
+        {!loading && <Route path="/order/:id" element={!isAuthenticated ? <Navigate to="/login" /> : <Dashboard />} />}
+
+        {!loading && isAuthenticated && <Route path="/admin/dashboard" element={<Dashboard />} />}
 
         {!loading && <Route path="/password/forgot" element={<ForgotPassword />} />}
         {!loading && <Route path="/password/reset/:token" element={<ResetPassword />} />}
