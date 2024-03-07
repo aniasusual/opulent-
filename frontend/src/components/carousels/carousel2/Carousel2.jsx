@@ -1,7 +1,7 @@
 import React from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 // Import Swiper styles
 import 'swiper/css';
@@ -17,7 +17,7 @@ export default function App() {
   return (
     <div className='carousel2'>
 
-      
+
 
 
       <Swiper
@@ -47,7 +47,7 @@ export default function App() {
         {images.map((image) => {
           return (
             <SwiperSlide>
-              <img src={image.url} className='imageCarousel2' />
+              <img src={image.url} alt={images.heading} className='imageCarousel2' />
               <div>
                 <h2>{image.heading}</h2>
                 <Link><span>Shop now &gt;</span></Link>

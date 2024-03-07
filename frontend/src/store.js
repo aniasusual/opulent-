@@ -24,7 +24,7 @@
 // export default store;
 
 import { configureStore } from "@reduxjs/toolkit"
-import { newReviewReducer, productDetailsReducer, productsReducer } from "./reducers/productReducer";
+import { newProductReducer, newReviewReducer, productDetailsReducer, productReducer, productsReducer } from "./reducers/productReducer";
 import { userReducer, profileReducer, forgotPasswordReducer } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import { myOrdersReducer, newOrderReducer, orderDetailsReducer } from "./reducers/orderReducer";
@@ -52,7 +52,9 @@ const store = configureStore({
         newOrder: newOrderReducer,
         myOrders: myOrdersReducer,
         orderDetails: orderDetailsReducer,
-        newReview: newReviewReducer
+        newReview: newReviewReducer,
+        newProduct: newProductReducer,
+        product: productReducer
     },
     preloadedState: initialState,
 

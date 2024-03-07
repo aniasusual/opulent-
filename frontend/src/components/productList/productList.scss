@@ -1,0 +1,46 @@
+.productListTable {
+  background-color: rgb(255, 255, 255);
+  margin: 20px;
+  color: red;
+  border: none !important;
+
+  // Added the following CSS rule to change the color of column headers
+  .MuiDataGrid-columnHeader {
+    color: black !important;
+  }
+}
+.productListContainer h1 {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font: 300 4vmax "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+    sans-serif;
+}
+
+.productListTable div {
+  font: 300 1vmax "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+    sans-serif;
+  color: rgba(0, 0, 0, 0.678);
+  border: none !important;
+}
+
+.productListTable a,
+.productListTable button {
+  color: rgba(0, 0, 0, 0.527);
+  transition: all 0.5s;
+}
+
+.productListTable a:hover {
+  color: tomato;
+}
+
+.productListTable button:hover {
+  color: rgb(236, 30, 30);
+}
+
+@media screen and (max-width: 600px) {
+  .productListTable div {
+    font: 300 4vw "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
+  }
+}
