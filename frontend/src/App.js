@@ -1,6 +1,6 @@
 import Footer from "./components/layout/footer/Footer.jsx";
 import Header from "./components/layout/header/Header.jsx"
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home.jsx";
 import Shop from "./pages/shopPage/ShopPage.jsx";
 import ProductDetails from "./components/product/ProductDetails.jsx"
@@ -27,14 +27,18 @@ import MyOrders from "./pages/Myorders/MyOrders.jsx";
 import { Navigate } from "react-router-dom";
 import OrderDetails from "./pages/orderDetails/OrderDetails.jsx";
 import Dashboard from "./pages/admin/dashboard/Dashboard.jsx";
+import NewProduct from "./components/newProduct.js/NewProduct.js";
+import UpdateProduct from "./components/updateProduct/UpdateProduct.jsx";
+import ProductList from "./components/productList/ProductList.jsx";
 
 function App() {
 
   useEffect(() => {
     store.dispatch(loadUser());
+    // console.log(user.role)
   }, [])
 
-  const { loading, isAuthenticated } = useSelector((state) => state.user);
+  const { loading, isAuthenticated, user } = useSelector((state) => state.user);
   // const navigate = useNavigate();
 
   return (
@@ -59,7 +63,18 @@ function App() {
         {!loading && <Route path="/order/:id" element={!isAuthenticated ? <Navigate to="/login" /> : <OrderDetails />} />}
         {!loading && <Route path="/order/:id" element={!isAuthenticated ? <Navigate to="/login" /> : <Dashboard />} />}
 
-        {!loading && isAuthenticated && <Route path="/admin/dashboard" element={<Dashboard />} />}
+
+        {!loading && <Route path="/admin/dashboard" element={!isAuthenticated && user && user.role !== "admin" ? <Navigate to="/" /> : <Dashboard />} />}
+        {!loading && <Route path="/admin/product" element={!isAuthenticated && user && user.role !== "admin" ? <Navigate to="/" /> : <NewProduct />} />}
+        {!loading && <Route path="/admin/product/:id" element={!isAuthenticated && user && user.role !== "admin" ? <Navigate to="/" /> : <UpdateProduct />} />}
+        {!loading && <Route path="/admin/products" element={!isAuthenticated && user && user.role !== "admin" ? <Navigate to="/" /> : <ProductList />} />}
+
+        {/* <ProtectedRoute
+          isAdmin={true}
+          exact
+          path="/admin/dashboard"
+          component={Dashboard}
+        /> */}
 
         {!loading && <Route path="/password/forgot" element={<ForgotPassword />} />}
         {!loading && <Route path="/password/reset/:token" element={<ResetPassword />} />}

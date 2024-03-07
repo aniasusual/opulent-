@@ -1,6 +1,7 @@
 const productModel = require('../models/productModel.js');
 const ApiFeatures = require('../utils/apifeatures.js')
 const ErrorHandler = require('../utils/errorHandler.js');
+const cloudinary = require("cloudinary");
 
 exports.getAllProducts = async (req, res, next) => {
     try {
@@ -33,6 +34,154 @@ exports.getAllProducts = async (req, res, next) => {
     }
 }
 
+// Get All Product (Admin)
+exports.getAdminProducts = async (req, res, next) => {
+
+    try {
+        const products = await productModel.find();
+        const productsCount = await productModel.countDocuments();
+
+        res.status(200).json({
+            success: true,
+            products,
+            productsCount,
+        });
+
+    } catch (error) {
+        console.log("Error in getting Admin products in product Controller: ", error.message);
+    }
+
+
+};
+
+// Create Product -- Admin
+exports.createProduct = async (req, res, next) => {
+
+    try {
+        let images = [];
+
+        if (typeof req.body.images === "string") {
+            images.push(req.body.images);
+        } else {
+            images = req.body.images;
+        }
+
+        const imagesLinks = [];
+
+        for (let i = 0; i < images.length; i++) {
+            const result = await cloudinary.v2.uploader.upload(images[i], {
+                folder: "products",
+            });
+
+            imagesLinks.push({
+                public_id: result.public_id,
+                url: result.secure_url,
+            });
+        }
+
+        req.body.images = imagesLinks;
+        req.body.user = req.user.id;
+
+        const product = await productModel.create(req.body);
+
+        res.status(201).json({
+            success: true,
+            product,
+        });
+
+    } catch (error) {
+        console.log("Error a creating product in productController: ", error.message);
+    }
+
+
+}
+
+// Update Product -- Admin
+
+exports.updateProduct = async (req, res, next) => {
+
+    try {
+        let product = await productModel.findById(req.params.id);
+
+        if (!product) {
+            return next(new ErrorHandler("Product not found", 404));
+        }
+
+        // Images Start Here
+        let images = [];
+
+        if (typeof req.body.images === "string") {
+            images.push(req.body.images);
+        } else {
+            images = req.body.images;
+        }
+
+        if (images !== undefined) {
+            // Deleting Images From Cloudinary
+            for (let i = 0; i < product.images.length; i++) {
+                await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+            }
+
+            const imagesLinks = [];
+
+            for (let i = 0; i < images.length; i++) {
+                const result = await cloudinary.v2.uploader.upload(images[i], {
+                    folder: "products",
+                });
+
+                imagesLinks.push({
+                    public_id: result.public_id,
+                    url: result.secure_url,
+                });
+            }
+
+            req.body.images = imagesLinks;
+        }
+
+        product = await productModel.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true,
+            useFindAndModify: false,
+        });
+
+        res.status(200).json({
+            success: true,
+            product,
+        });
+
+    } catch (error) {
+        return next(new ErrorHandler("Product not updated ", 404));
+    }
+};
+
+// // Delete Product
+// exports.deleteProduct = async (req, res, next) => {
+
+//     try {
+//         const product = await productModel.findById(req.params.id);
+
+//         if (!product) {
+//             return next(new ErrorHandler("Product not found", 404));
+//         }
+
+//         // Deleting Images From Cloudinary
+//         for (let i = 0; i < product.images.length; i++) {
+//             await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+//         }
+
+//         await product.remove();
+
+//         res.status(200).json({
+//             success: true,
+//             message: "Product Delete Successfully",
+//         });
+
+//     } catch (error) {
+//         return next(new ErrorHandler("Product not deleted", 404));
+//     }
+
+// };
+
 
 // Get Product Details
 exports.getProductDetails = async (req, res, next) => {
@@ -41,7 +190,7 @@ exports.getProductDetails = async (req, res, next) => {
         const product = await productModel.findById(req.params.id);
 
         if (!product) {
-            return next(new ErrorHander("Product not found", 404));
+            return next(new ErrorHandler("Product not found", 404));
         }
 
         res.status(200).json({
@@ -105,47 +254,73 @@ exports.getById = async function (req, res, next) {
     }
 }
 
+exports.deleteProduct = async (req, res, next) => {
+
+    try {
+        const product = await productModel.findById(req.params.id);
+
+        if (!product) {
+            return next(new ErrorHandler("Product not found", 404));
+        }
+
+        // Deleting Images From Cloudinary
+        for (let i = 0; i < product.images.length; i++) {
+            await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+        }
+
+        await product.remove();
+
+        res.status(200).json({
+            success: true,
+            message: "Product Delete Successfully",
+        });
+
+    } catch (error) {
+        console.log("error occured in product controller in deleteProduct: ", error);
+    }
+};
+
 
 // UPDATE product-----ADMIN
-exports.updateById = async function (req, res, next) {
-    try {
-        const id = req.params.id;
-        let updatedProduct = await productModel.findOneAndUpdate(
-            { id: id },
-            req.body,
-            { new: true }
-        );
-        if (updatedProduct) {
-            res.status(200).json(updatedProduct);
-        } else {
-            // res.status(500).json({ error: 'productModel not found'});
-            return next(new ErrorHandler("No product found!", 500));
-        }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
+// exports.updateById = async function (req, res, next) {
+//     try {
+//         const id = req.params.id;
+//         let updatedProduct = await productModel.findOneAndUpdate(
+//             { id: id },
+//             req.body,
+//             { new: true }
+//         );
+//         if (updatedProduct) {
+//             res.status(200).json(updatedProduct);
+//         } else {
+//             // res.status(500).json({ error: 'productModel not found'});
+//             return next(new ErrorHandler("No product found!", 500));
+//         }
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
 
-}
+// }
 
 // DELETE product------ADMIN
-exports.deleteById = async function (req, res, next) {
-    try {
-        const id = req.params.id;
-        const deletedProduct = await productModel.findOneAndDelete({ id: id });
-        if (deletedProduct) {
-            res.status(200).json({
-                status: "success",
-                message: "productModel Deleted Successfully",
-                deletedProduct
-            });
-        } else {
-            //   res.status(500).json({ error: 'productModel not found' });
-            return next(new ErrorHandler("No product found!", 500));
-        }
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-}
+// exports.deleteById = async function (req, res, next) {
+//     try {
+//         const id = req.params.id;
+//         const deletedProduct = await productModel.findOneAndDelete({ id: id });
+//         if (deletedProduct) {
+//             res.status(200).json({
+//                 status: "success",
+//                 message: "productModel Deleted Successfully",
+//                 deletedProduct
+//             });
+//         } else {
+//             //   res.status(500).json({ error: 'productModel not found' });
+//             return next(new ErrorHandler("No product found!", 500));
+//         }
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// }
 
 //Create or update a review
 exports.createProductReview = async function (req, res, next) {
