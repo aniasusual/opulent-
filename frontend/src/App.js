@@ -30,7 +30,7 @@ import Dashboard from "./pages/admin/dashboard/Dashboard.jsx";
 import NewProduct from "./components/newProduct.js/NewProduct.js";
 import UpdateProduct from "./components/updateProduct/UpdateProduct.jsx";
 import ProductList from "./components/productList/ProductList.jsx";
-import OrderList from "./components/orderList/OrderList.js";
+import OrderList from "./components/orderList/OrderList.jsx";
 import ProcessOrder from "./components/processOrder/ProcessOrder.jsx";
 
 function App() {

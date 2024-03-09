@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_CART_ITEM, SAVE_SHIPPING_INFO } from "../constants/cartConstants"
+import { ADD_TO_CART, REMOVE_CART_ITEM, SAVE_SHIPPING_INFO, EMPTY_CART } from "../constants/cartConstants"
 
 import { createReducer } from "@reduxjs/toolkit"
 
@@ -31,6 +31,12 @@ export const cartReducer = createReducer({ cartItems: [], shippingInfo: {} }, {
             cartItems: state.cartItems.filter((i) => i.product !== action.payload),
         }
     },
+    [EMPTY_CART]: (state, action) => {
+        return {
+            cartItems: []
+        }
+    },
+
     [SAVE_SHIPPING_INFO]: (state, action) => {
         return {
             ...state,
