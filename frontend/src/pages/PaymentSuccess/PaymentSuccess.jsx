@@ -13,6 +13,7 @@ import {
   CREATE_ORDER_FAIL,
   CLEAR_ERRORS,
 } from "../../constants/orderConstants";
+import { EMPTY_CART } from "../../constants/cartConstants";
 
 const OrderSuccess = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,8 @@ const OrderSuccess = () => {
       // console.log("retrieved data in success", response.data.newOrder);
       // console.log("data ========", data);
       dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
+      localStorage.setItem('cartItems', JSON.stringify([]));
+      dispatch({ type: EMPTY_CART })
     } catch (error) {
       console.error("Error fetching data:", error);
       dispatch({

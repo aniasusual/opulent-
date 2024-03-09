@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
-import MetaData from ".././layout/metadata/Metadata";
+import MetaData from "../layout/metadata/Metadata";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SideBar from "../sidebar/Sidebar";
@@ -51,6 +51,7 @@ const OrderList = () => {
     }, [dispatch, alert, error, deleteError, navigate, isDeleted]);
 
     const columns = [
+        { field: "date", headerName: "Date and Time", minWidth: 520, flex: 1 },
         { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },
 
         {
@@ -112,9 +113,10 @@ const OrderList = () => {
     orders &&
         orders.forEach((item) => {
             rows.push({
+                date: new Date(item.createdAt),
                 id: item._id,
                 itemsQty: item.orderItems.length,
-                amount: item.totalPrice,
+                amount: item.totalPrice / 100,
                 status: item.orderStatus,
             });
         });
