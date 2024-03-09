@@ -31,9 +31,10 @@ const ErrorHandler = require("../utils/errorHandler");
 
 // };
 
-exports.newOrder = function (customer, data) {
+exports.newOrder = async function (customer, data) {
 
     // const items = JSON.parse(customer.metadata.cart);
+    console.log("controller reaches newOrder");
     let items;
     try {
         // Attempt to parse the cart string into an array of objects
@@ -55,7 +56,7 @@ exports.newOrder = function (customer, data) {
         payment_status: data.payment_status,
         paidAt: Date.now(),
     }).then((order) => {
-        // console.log("processed order :", order);
+        console.log("processed order :", order);
         // console.log("processed order :", typeof (order));
         return order;
     }).catch((err) => {
@@ -70,7 +71,7 @@ exports.getSingleOrder = async function (req, res, next) {
 
     // const order = await orderModel.findById(req.params.id).populate("userId", "shippingInfo[name] shippingInfo[email]");
     const order = await orderModel.findById(req.params.id)
-    console.log("order in orderController: ", order)
+    // console.log("order in orderController: ", order)
 
     if (!order) {
         return next(new ErrorHandler("No order found", 401));
@@ -88,6 +89,7 @@ exports.myOrders = async function (req, res, next) {
 
     try {
         const orders = await orderModel.find({ userId: req.user._id });
+        console.log("all orders:", orders.length);
 
         // console.log(orders);
         if (!orders) {

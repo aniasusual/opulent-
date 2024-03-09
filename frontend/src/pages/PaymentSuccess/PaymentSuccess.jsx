@@ -22,8 +22,10 @@ const OrderSuccess = () => {
       dispatch({ type: CREATE_ORDER_REQUEST });
 
       const response = await axios.get("/api/v1/newOrder");
+      // console.log("response in OrderSuccess", response);
 
       const data = response.data.newOrder;
+      // console.log("response in OrderSuccess", data);
       // console.log("retrieved data in success", response.data.newOrder);
       // console.log("data ========", data);
       dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
