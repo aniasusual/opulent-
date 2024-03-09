@@ -30,6 +30,8 @@ import Dashboard from "./pages/admin/dashboard/Dashboard.jsx";
 import NewProduct from "./components/newProduct.js/NewProduct.js";
 import UpdateProduct from "./components/updateProduct/UpdateProduct.jsx";
 import ProductList from "./components/productList/ProductList.jsx";
+import OrderList from "./components/orderList/OrderList.js";
+import ProcessOrder from "./components/processOrder/ProcessOrder.jsx";
 
 function App() {
 
@@ -68,6 +70,8 @@ function App() {
         {!loading && <Route path="/admin/product" element={!isAuthenticated && user && user.role !== "admin" ? <Navigate to="/" /> : <NewProduct />} />}
         {!loading && <Route path="/admin/product/:id" element={!isAuthenticated && user && user.role !== "admin" ? <Navigate to="/" /> : <UpdateProduct />} />}
         {!loading && <Route path="/admin/products" element={!isAuthenticated && user && user.role !== "admin" ? <Navigate to="/" /> : <ProductList />} />}
+        {!loading && <Route path="/admin/orders" element={!isAuthenticated && user && user.role !== "admin" ? <Navigate to="/" /> : <OrderList />} />}
+        {!loading && <Route path="/admin/order/:id" element={!isAuthenticated && user && user.role !== "admin" ? <Navigate to="/" /> : <ProcessOrder />} />}
 
         {/* <ProtectedRoute
           isAdmin={true}

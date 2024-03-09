@@ -23,7 +23,7 @@ const ConfirmOrder = () => {
 
   const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
 
-  const proceedToPayment = () => {
+  function proceedToPayment() {
     const data = {
       subtotal,
       shippingCharges,
