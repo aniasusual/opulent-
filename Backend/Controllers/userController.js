@@ -302,6 +302,9 @@ exports.deleteUser = async function (req, res, next) {
         }
 
         // await user.remove();
+        // await cloudinary.v2.uploader.destroy(imageId);
+
+        // await user.remove();
 
         res.status(200).json({
             status: "success",

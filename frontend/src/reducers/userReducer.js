@@ -32,6 +32,24 @@ import {
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_FAIL,
 
+    ALL_USERS_REQUEST,
+    ALL_USERS_SUCCESS,
+    ALL_USERS_FAIL,
+
+    DELETE_USER_REQUEST,
+    DELETE_USER_SUCCESS,
+    DELETE_USER_FAIL,
+    DELETE_USER_RESET,
+
+    UPDATE_USER_REQUEST,
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_FAIL,
+    UPDATE_USER_RESET,
+
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_SUCCESS,
+    USER_DETAILS_FAIL,
+
     CLEAR_ERRORS,
 } from "../constants/userConstants";
 
@@ -154,6 +172,19 @@ export const profileReducer = createReducer(
             };
         },
 
+        [UPDATE_USER_REQUEST]: (state, action) => {
+            return {
+                ...state,
+                loading: true,
+            };
+        },
+        [DELETE_USER_REQUEST]: (state, action) => {
+            return {
+                ...state,
+                loading: true,
+            };
+        },
+
         [UPDATE_PROFILE_SUCCESS]: (state, action) => {
             return {
                 ...state,
@@ -167,6 +198,20 @@ export const profileReducer = createReducer(
                 ...state,
                 loading: false,
                 isUpdated: action.payload,
+            };
+        },
+        [UPDATE_USER_SUCCESS]: (state, action) => {
+            return {
+                ...state,
+                loading: false,
+                isUpdated: action.payload,
+            };
+        },
+        [DELETE_USER_SUCCESS]: (state, action) => {
+            return {
+                ...state,
+                loading: false,
+                isDeleted: action.payload,
             };
         },
 
@@ -184,6 +229,20 @@ export const profileReducer = createReducer(
                 error: action.payload,
             };
         },
+        [UPDATE_USER_FAIL]: (state, action) => {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        },
+        [DELETE_USER_FAIL]: (state, action) => {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        },
 
         [UPDATE_PROFILE_RESET]: (state, action) => {
             return {
@@ -195,6 +254,18 @@ export const profileReducer = createReducer(
             return {
                 ...state,
                 isUpdated: false,
+            };
+        },
+        [UPDATE_USER_RESET]: (state, action) => {
+            return {
+                ...state,
+                isUpdated: false,
+            };
+        },
+        [DELETE_USER_RESET]: (state, action) => {
+            return {
+                ...state,
+                isDeleted: false,
             };
         },
 
@@ -264,44 +335,72 @@ export const forgotPasswordReducer = createReducer(
     }
 );
 
-// export const forgotPasswordReducer = createReducer({}, action) => {
-//     switch (action.type) {
-//       case FORGOT_PASSWORD_REQUEST:
-//       case RESET_PASSWORD_REQUEST:
-//         return {
-//           ...state,
-//           loading: true,
-//           error: null,
-//         };
-//       case FORGOT_PASSWORD_SUCCESS:
-//         return {
-//           ...state,
-//           loading: false,
-//           message: action.payload,
-//         };
+export const allUsersReducer = createReducer(
+    { users: [] },
+    {
+        [ALL_USERS_REQUEST]: (state, action) => {
+            return {
+                ...state,
+                loading: true,
+            };
+        },
+        [ALL_USERS_SUCCESS]: (state, action) => {
+            return {
+                ...state,
+                loading: false,
+                users: action.payload,
+            };
+        },
 
-//       case RESET_PASSWORD_SUCCESS:
-//         return {
-//           ...state,
-//           loading: false,
-//           success: action.payload,
-//         };
+        [ALL_USERS_FAIL]: (state, action) => {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        },
 
-//       case FORGOT_PASSWORD_FAIL:
-//       case RESET_PASSWORD_FAIL:
-//         return {
-//           ...state,
-//           loading: false,
-//           error: action.payload,
-//         };
+        [CLEAR_ERRORS]: (state, action) => {
+            return {
+                ...state,
+                error: null,
+            };
+        },
+    }
+);
 
-//       case CLEAR_ERRORS:
-//         return {
-//           ...state,
-//           error: null,
-//         };
+export const userDetailsReducer = createReducer(
+    { user: {} },
+    {
+        [USER_DETAILS_REQUEST]: (state, action) => {
+            return {
+                ...state,
+                loading: true,
+            };
+        },
+        [USER_DETAILS_SUCCESS]: (state, action) => {
+            return {
+                ...state,
+                loading: false,
+                user: action.payload,
+            };
+        },
 
-//       default:
-//         return state;
-//     }
-//   };
+        [USER_DETAILS_FAIL]: (state, action) => {
+            return {
+                ...state,
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        },
+
+        [CLEAR_ERRORS]: (state, action) => {
+            return {
+                ...state,
+                error: null,
+            };
+        },
+    }
+);
+
