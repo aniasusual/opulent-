@@ -172,7 +172,7 @@ exports.getUserDetails = async function (req, res, next) {
         })
 
     } catch (error) {
-        console.log("error :", error);
+        console.log("error in getUserDetails:", error);
     }
 }
 
