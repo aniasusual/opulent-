@@ -31,6 +31,15 @@ import {
     NEW_REVIEW_FAIL,
     NEW_REVIEW_RESET,
 
+    ALL_REVIEW_REQUEST,
+    ALL_REVIEW_SUCCESS,
+    ALL_REVIEW_FAIL,
+
+    DELETE_REVIEW_REQUEST,
+    DELETE_REVIEW_SUCCESS,
+    DELETE_REVIEW_FAIL,
+    DELETE_REVIEW_RESET,
+
     CLEAR_ERRORS
 } from "../constants/productConstants";
 
@@ -287,5 +296,79 @@ export const productReducer = createReducer({}, {
 
 
 })
+export const productReviewsReducer = createReducer({ reviews: [] }, {
 
+    [ALL_REVIEW_REQUEST]: (state, action) => {
+        return {
+            ...state,
+            loading: true,
+        };
+    },
+
+    [ALL_REVIEW_SUCCESS]: (state, action) => {
+        return {
+            loading: false,
+            reviews: action.payload,
+        };
+    },
+
+    [ALL_REVIEW_FAIL]: (state, action) => {
+        return {
+            ...state,
+            loading: false,
+            error: action.payload,
+        };
+    },
+
+    [CLEAR_ERRORS]: (state, action) => {
+        return {
+            ...state,
+            error: null,
+        };
+    },
+
+
+})
+
+
+export const reviewReducer = createReducer({ reviews: [] }, {
+
+    [DELETE_REVIEW_REQUEST]: (state, action) => {
+        return {
+            ...state,
+            loading: true,
+        };
+    },
+
+    [DELETE_REVIEW_SUCCESS]: (state, action) => {
+        return {
+            ...state,
+            loading: false,
+            isDeleted: action.payload,
+        };
+    },
+
+    [DELETE_REVIEW_FAIL]: (state, action) => {
+        return {
+            ...state,
+            loading: false,
+            error: action.payload,
+        };
+    },
+    [DELETE_REVIEW_RESET]: (state, action) => {
+        return {
+            ...state,
+            isDeleted: false,
+        };
+    },
+
+    [CLEAR_ERRORS]: (state, action) => {
+        return {
+            ...state,
+            error: null,
+        };
+    },
+
+
+})
 
