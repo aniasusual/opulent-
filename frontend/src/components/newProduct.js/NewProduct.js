@@ -14,7 +14,7 @@ import SideBar from "../sidebar/Sidebar";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
 import { useNavigate } from "react-router-dom";
 
-const NewProduct = ({ history }) => {
+const NewProduct = () => {
     const dispatch = useDispatch();
     const alert = useAlert();
     const navigate = useNavigate();
@@ -69,7 +69,16 @@ const NewProduct = ({ history }) => {
         images.forEach((image) => {
             myForm.append("images", image);
         });
+
+        // const formDataJson = {};
+        // for (const [key, value] of myForm.entries()) {
+        //     formDataJson[key] = value;
+        // }
+
+        // // Convert JSON object to JSON string
+        // const jsonData = JSON.stringify(formDataJson);
         dispatch(createProduct(myForm));
+        // dispatch(createProduct(jsonData));
     };
 
     const createProductImagesChange = (e) => {
