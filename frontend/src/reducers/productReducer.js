@@ -252,7 +252,7 @@ export const productReducer = createReducer({}, {
         return {
             ...state,
             loading: false,
-            isUPDATED: action.payload,
+            isUpdated: action.payload,
         };
     },
 
@@ -283,7 +283,7 @@ export const productReducer = createReducer({}, {
     [UPDATE_PRODUCT_RESET]: (state, action) => {
         return {
             ...state,
-            isUPDATED: false,
+            isUpdated: false,
         };
     },
 

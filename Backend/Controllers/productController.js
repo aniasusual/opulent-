@@ -155,32 +155,32 @@ exports.updateProduct = async (req, res, next) => {
 };
 
 // // Delete Product
-// exports.deleteProduct = async (req, res, next) => {
+exports.deleteProduct = async (req, res, next) => {
+    try {
+        const product = await productModel.findById(req.params.id);
 
-//     try {
-//         const product = await productModel.findById(req.params.id);
+        if (!product) {
+            return next(new ErrorHandler("Product not found", 404));
+        }
 
-//         if (!product) {
-//             return next(new ErrorHandler("Product not found", 404));
-//         }
+        // Deleting Images From Cloudinary
+        for (let i = 0; i < product.images.length; i++) {
+            await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+        }
 
-//         // Deleting Images From Cloudinary
-//         for (let i = 0; i < product.images.length; i++) {
-//             await cloudinary.v2.uploader.destroy(product.images[i].public_id);
-//         }
+        // Use deleteOne method to delete the product document
+        await productModel.deleteOne({ _id: req.params.id });
 
-//         await product.remove();
+        res.status(200).json({
+            success: true,
+            message: "Product Delete Successfully",
+        });
 
-//         res.status(200).json({
-//             success: true,
-//             message: "Product Delete Successfully",
-//         });
+    } catch (error) {
+        return next(new ErrorHandler("Product not deleted", 404));
+    }
+};
 
-//     } catch (error) {
-//         return next(new ErrorHandler("Product not deleted", 404));
-//     }
-
-// };
 
 
 // Get Product Details
@@ -204,7 +204,7 @@ exports.getProductDetails = async (req, res, next) => {
 
 };
 
-// Create product-----ADMIN
+// // Create product-----ADMIN
 exports.addProduct = async (req, res) => {
     try {
 
@@ -226,6 +226,10 @@ exports.addProduct = async (req, res) => {
 
 
 }
+
+
+
+
 
 exports.getById = async function (req, res, next) {
 
@@ -254,73 +258,47 @@ exports.getById = async function (req, res, next) {
     }
 }
 
-exports.deleteProduct = async (req, res, next) => {
-
-    try {
-        const product = await productModel.findById(req.params.id);
-
-        if (!product) {
-            return next(new ErrorHandler("Product not found", 404));
-        }
-
-        // Deleting Images From Cloudinary
-        for (let i = 0; i < product.images.length; i++) {
-            await cloudinary.v2.uploader.destroy(product.images[i].public_id);
-        }
-
-        await product.remove();
-
-        res.status(200).json({
-            success: true,
-            message: "Product Delete Successfully",
-        });
-
-    } catch (error) {
-        console.log("error occured in product controller in deleteProduct: ", error);
-    }
-};
-
 
 // UPDATE product-----ADMIN
-// exports.updateById = async function (req, res, next) {
-//     try {
-//         const id = req.params.id;
-//         let updatedProduct = await productModel.findOneAndUpdate(
-//             { id: id },
-//             req.body,
-//             { new: true }
-//         );
-//         if (updatedProduct) {
-//             res.status(200).json(updatedProduct);
-//         } else {
-//             // res.status(500).json({ error: 'productModel not found'});
-//             return next(new ErrorHandler("No product found!", 500));
-//         }
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//     }
+exports.updateById = async function (req, res, next) {
+    try {
+        const id = req.params.id;
+        let updatedProduct = await productModel.findOneAndUpdate(
+            { id: id },
+            req.body,
+            { new: true }
+        );
+        if (updatedProduct) {
+            res.status(200).json(updatedProduct);
+        } else {
+            // res.status(500).json({ error: 'productModel not found'});
+            return next(new ErrorHandler("No product found!", 500));
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 
-// }
+}
 
 // DELETE product------ADMIN
-// exports.deleteById = async function (req, res, next) {
-//     try {
-//         const id = req.params.id;
-//         const deletedProduct = await productModel.findOneAndDelete({ id: id });
-//         if (deletedProduct) {
-//             res.status(200).json({
-//                 status: "success",
-//                 message: "productModel Deleted Successfully",
-//                 deletedProduct
-//             });
-//         } else {
-//             //   res.status(500).json({ error: 'productModel not found' });
-//             return next(new ErrorHandler("No product found!", 500));
-//         }
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//     }
-// }
+exports.deleteById = async function (req, res, next) {
+    try {
+        const id = req.params.id;
+        const deletedProduct = await productModel.findOneAndDelete({ id: id });
+        if (deletedProduct) {
+            res.status(200).json({
+                status: "success",
+                message: "productModel Deleted Successfully",
+                deletedProduct
+            });
+        } else {
+            //   res.status(500).json({ error: 'productModel not found' });
+            return next(new ErrorHandler("No product found!", 500));
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
 
 //Create or update a review
 exports.createProductReview = async function (req, res, next) {

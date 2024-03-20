@@ -49,7 +49,7 @@ const ProductList = () => {
             alert.success("Product Deleted Successfully");
             // history.push("/admin/dashboard");
             navigate("/admin/dashboard");
-            dispatch({ type: DELETE_PRODUCT_RESET });
+            // dispatch({ type: DELETE_PRODUCT_RESET });
         }
 
         dispatch(getAdminProduct());

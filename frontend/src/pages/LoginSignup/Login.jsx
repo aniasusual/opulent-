@@ -35,8 +35,8 @@ const Login = () => {
 
   const { name, email, password } = user;
 
-  // const [avatar, setAvatar] = useState("../../data/Profile.png");
-  // const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
+  const [avatar, setAvatar] = useState("../../data/Profile.png");
+  const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
 
   const loginSubmit = (e) => {
     e.preventDefault();
@@ -47,17 +47,53 @@ const Login = () => {
   const registerSubmit = (e) => {
     e.preventDefault();
 
+    // const myForm = new FormData();
+
+    // myForm.set("name", name);
+    // myForm.set("email", email);
+    // myForm.set("password", password);
+    // // myForm.set("avatar", avatar);
+    // myForm.append("avatar", avatar);
+
     const myForm = new FormData();
 
     myForm.set("name", name);
     myForm.set("email", email);
     myForm.set("password", password);
+    myForm.append("avatar", avatar);
+
+    // Convert FormData to JSON
+    const formDataJson = {};
+    for (const [key, value] of myForm.entries()) {
+      formDataJson[key] = value;
+    }
+
+    // Convert JSON object to JSON string
+    const jsonData = JSON.stringify(formDataJson);
+
+
     console.log("register form submitted");
-    dispatch(register(myForm));
+    // dispatch(register(myForm));
+    dispatch(register(jsonData));
   };
 
   const registerDataChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    if (e.target.name === "avatar") {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          // Set avatar as base64 encoded string
+          setAvatar(reader.result);
+          setAvatarPreview(reader.result);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    } else {
+      setUser({ ...user, [e.target.name]: e.target.value });
+    }
   };
 
   const redirect = location.search ? location.search.split("=")[1] : "/account";
@@ -134,6 +170,7 @@ const Login = () => {
                 className="signUpForm"
                 ref={registerTab}
                 onSubmit={registerSubmit}
+                encType="multipart/form-data"
               >
                 <div className="signUpName">
                   <FaceIcon />
@@ -165,6 +202,15 @@ const Login = () => {
                     required
                     name="password"
                     value={password}
+                    onChange={registerDataChange}
+                  />
+                </div>
+                <div id="registerImage">
+                  <img src={avatarPreview} alt="Avatar Preview" />
+                  <input
+                    type="file"
+                    name="avatar"
+                    accept="image/*"
                     onChange={registerDataChange}
                   />
                 </div>

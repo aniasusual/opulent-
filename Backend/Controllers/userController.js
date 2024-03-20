@@ -3,43 +3,44 @@ const ErrorHandler = require('../utils/errorHandler');
 const sendToken = require('../utils/jwtToken');
 const { sendEmail } = require('../utils/sendEmail');
 const crypto = require("crypto");
-// const cloudinary = require("cloudinary");
+const cloudinary = require("cloudinary");
 
 exports.registerUser = async function (req, res, next) {
-
     try {
+        const avatarData = req.body.avatar;
 
-        // const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-        //     folder: "avatars",
-        //     width: 150,
-        //     crop: "scale",
-        // });
-
+        // Upload base64 encoded image data to Cloudinary
+        const myCloud = await cloudinary.v2.uploader.upload(avatarData, {
+            folder: "avatars",
+            width: 150,
+            crop: "scale",
+        });
 
         const { name, email, password } = req.body;
 
+        // Create user with avatar details
         const user = await userModel.create({
             name,
             email,
             password,
-            // avatar: {
-            //     public_id: myCloud.public_id,
-            //     url: myCloud.secure_url,
-            // }
+            avatar: {
+                public_id: myCloud.public_id,
+                url: myCloud.secure_url,
+            }
         });
 
-
+        // Send token on successful user creation
         sendToken(user, 201, res);
 
         if (!user) {
-
+            // Handle user creation failure
             return next(new ErrorHandler("user creation failed", 500));
         }
     } catch (error) {
         console.log("User not created", error.message);
     }
+};
 
-}
 
 
 
@@ -203,29 +204,48 @@ exports.updatePassword = async function (req, res, next) {
 }
 
 
-//Update user profile
-exports.updateProfile = async function (req, res, next) {
+// update User Profile
+exports.updateProfile = async (req, res, next) => {
+
     try {
-        const newData = {
+        const newUserData = {
             name: req.body.name,
-            email: req.body.email
+            email: req.body.email,
+        };
+
+        if (req.body.avatar !== "") {
+            const user = await userModel.findById(req.user.id);
+
+            const imageId = user.avatar.public_id;
+
+            await cloudinary.v2.uploader.destroy(imageId);
+
+            const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+                folder: "avatars",
+                width: 150,
+                crop: "scale",
+            });
+
+            newUserData.avatar = {
+                public_id: myCloud.public_id,
+                url: myCloud.secure_url,
+            };
         }
 
-        const user = await userModel.findByIdAndUpdate(req.user.id, newData, {
+        const user = await userModel.findByIdAndUpdate(req.user.id, newUserData, {
             new: true,
             runValidators: true,
-            useFindAndModify: false
+            useFindAndModify: false,
         });
 
         res.status(200).json({
-            status: "success",
-            message: "profile updated"
+            success: true,
         });
 
     } catch (error) {
-        console.log("error occured: ", error);
+        console.log("failed to update User details: ", error.message)
     }
-}
+};
 
 // Admin function to check all the users in the website--------(ADMIN)
 exports.getAllUsers = async function (req, res, next) {

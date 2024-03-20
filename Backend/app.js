@@ -2,12 +2,16 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const errorMiddleware = require("./middleware/error");
 const bodyParser = require("body-parser");
+const fileUpload = require("express-fileupload");
 const app = express();
 
 
 app.use(cookieParser());
-app.use(express.json());
+// app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(fileUpload())
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config({ path: "Backend/config/config.env" });

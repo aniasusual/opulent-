@@ -2,6 +2,7 @@ const app = require("./app");
 // const cloudinary = require("cloudinary");
 const { connectDatabase } = require("./config/database");
 const bodyParser = require("body-parser");
+const cloudinary = require("cloudinary")
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
@@ -28,11 +29,11 @@ app.use(bodyParser.json());
 // Connecting to database
 connectDatabase();
 
-// cloudinary.config({
-//   cloud_name: process.env.CLOUDINARY_NAME,
-//   api_key: process.env.CLOUDINARY_API_KEY,
-//   api_secret: process.env.CLOUDINARY_API_SECRET,
-// });
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const server = app.listen(process.env.PORT, () => {
   console.log(`Server is working on http://localhost:${process.env.PORT}`);

@@ -58,7 +58,7 @@ const UserOptions = ({ user }) => {
         open={openDial}
         direction="down"
         icon={
-          <img className="speedDialIcon" src="/Profile.png" alt="Profile" />
+          <img className="speedDialIcon" src={user.avatar.url} alt="Profile" />
         }
       >
         {options.map((item) => (
