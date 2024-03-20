@@ -1,12 +1,10 @@
-
-.carousel1{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 100px;
-    margin-bottom: 50px;
-   
+.carousel1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
+  margin-bottom: 50px;
 }
 
 .swiper {
@@ -19,11 +17,10 @@
   justify-content: center;
   flex-direction: column;
 
-  #drag-slide{
+  #drag-slide {
     margin-top: 80px;
-    font-family: 'Public Sans', sans-serif;
+    font-family: "Public Sans", sans-serif;
   }
-
 }
 
 .swiper-slide {
@@ -35,9 +32,17 @@
   justify-items: center;
   align-items: center;
   flex-direction: column;
-//   height: 50vh;
+  //   height: 50vh;
 
-  button{
+  a {
+    font-style: none;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  button {
     position: absolute;
     top: 80%;
     background-color: white;
@@ -52,9 +57,9 @@
     transition: all ease-in-out 0.2s;
   }
 
-  button:hover{
+  button:hover {
     background-color: black;
-    color: white
+    color: white;
   }
 }
 
