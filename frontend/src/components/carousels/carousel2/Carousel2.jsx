@@ -12,8 +12,19 @@ import './carousel2.scss';
 // import required modules
 import { Pagination } from 'swiper/modules';
 import images from "../../../data/imagesCarousel2.json"
+import { getProduct } from '../../../actions/productAction';
+import { useSelector, useDispatch } from "react-redux"
+import { useAlert } from 'react-alert';
+
 
 export default function App() {
+
+  const alert = useAlert();
+  const dispatch = useDispatch();
+  const { loading, error, products, productsCount } = useSelector((state) => state.products);
+
+
+
   return (
     <div className='carousel2'>
 
@@ -44,7 +55,20 @@ export default function App() {
         className="mySwiper"
       >
 
-        {images.map((image) => {
+        {products.map(product => {
+          return (
+            <SwiperSlide>
+              <img src={product.images[0].url} alt={product.category} className='imageCarousel2' />
+              <div>
+                <h2>{product.category}</h2>
+                <Link to={`/product/${product._id}`}><span>Shop now &gt;</span></Link>
+              </div>
+            </SwiperSlide>
+          )
+        })}
+
+
+        {/* {images.map((image) => {
           return (
             <SwiperSlide>
               <img src={image.url} alt={images.heading} className='imageCarousel2' />
@@ -54,7 +78,7 @@ export default function App() {
               </div>
             </SwiperSlide>
           )
-        })}
+        })} */}
 
 
 
