@@ -39,6 +39,7 @@ import ProductReviews from "./components/productReviews/ProductReviews.jsx";
 function App() {
 
   useEffect(() => {
+    console.log(user);
     store.dispatch(loadUser());
     // console.log(user.role)
   }, [])
