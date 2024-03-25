@@ -58,9 +58,6 @@ export const myOrders = () => async (dispatch) => {
         // const data = await axios.get("/api/v1/orders/me");
         const { data } = await axios.get("/api/v1/orders/me");
 
-        // data && console.log("data orders", data.orders);
-
-        // dispatch({ type: MY_ORDERS_SUCCESS, payload: data.orders });
         dispatch({ type: MY_ORDERS_SUCCESS, payload: data.orders });
     } catch (error) {
         dispatch({
