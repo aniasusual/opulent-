@@ -47,6 +47,9 @@ function App() {
   const { loading, isAuthenticated, user } = useSelector((state) => state.user);
   // const navigate = useNavigate();
 
+  window.addEventListener("contextmenu", (e) => e.preventDefault());
+
+
   return (
 
     <BrowserRouter>
