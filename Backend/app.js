@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const app = express();
 const path = require("path");
+const cors = require("cors");
 
 
 
@@ -14,6 +15,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload())
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(cors({
+    origin: "*"
+}))
 
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config({ path: "Backend/config/config.env" });

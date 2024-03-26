@@ -4,6 +4,7 @@ import { Elements, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 import CheckOutForm from "../../components/checkOutform/CheckOutForm";
 import "./payment.scss";
+import { BackendUrl } from "../../data/backendUrl";
 
 const Payment = () => {
     const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -16,7 +17,8 @@ const Payment = () => {
     };
 
     async function getStripeApiKey() {
-        const { data } = await axios.get("/api/v1/stripeapikey");
+        // const { data } = await axios.get("/api/v1/stripeapikey");
+        const { data } = await axios.get(`${BackendUrl}/api/v1/stripeapikey`);
 
         setStripeApiKey(data.stripeApiKey);
         console.log(stripeApiKey);
@@ -30,8 +32,13 @@ const Payment = () => {
                     "Content-Type": "application/json",
                 },
             };
+            // const secretObject = await axios.post(
+            //     "/api/v1/payment/process",
+            //     paymentData,
+            //     config
+            // );
             const secretObject = await axios.post(
-                "/api/v1/payment/process",
+                `${BackendUrl}/api/v1/payment/process`,
                 paymentData,
                 config
             );
