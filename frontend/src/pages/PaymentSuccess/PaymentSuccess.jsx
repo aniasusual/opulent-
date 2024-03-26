@@ -14,7 +14,6 @@ import {
   CLEAR_ERRORS,
 } from "../../constants/orderConstants";
 import { EMPTY_CART } from "../../constants/cartConstants";
-import { BackendUrl } from "../../data/backendUrl";
 
 const OrderSuccess = () => {
   const dispatch = useDispatch();
@@ -23,8 +22,7 @@ const OrderSuccess = () => {
     try {
       dispatch({ type: CREATE_ORDER_REQUEST });
 
-      // const response = await axios.get("/api/v1/newOrder");
-      const response = await axios.get(`${BackendUrl}/api/v1/newOrder`);
+      const response = await axios.get("/api/v1/newOrder");
       // console.log("response in OrderSuccess", response);
 
       const data = response.data.newOrder;
@@ -32,8 +30,8 @@ const OrderSuccess = () => {
       // console.log("retrieved data in success", response.data.newOrder);
       // console.log("data ========", data);
       dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
-      localStorage.setItem("cartItems", JSON.stringify([]));
-      dispatch({ type: EMPTY_CART });
+      localStorage.setItem('cartItems', JSON.stringify([]));
+      dispatch({ type: EMPTY_CART })
     } catch (error) {
       console.error("Error fetching data:", error);
       dispatch({
