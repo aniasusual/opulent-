@@ -73,5 +73,5 @@
   "devDependencies": {
     "sass": "^1.69.3"
   },
-  "proxy": "https://opulent-5brs.onrender.com"
+  "proxy": "http://192.168.129.99:4000"
 }
