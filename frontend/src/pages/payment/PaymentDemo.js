@@ -16,7 +16,7 @@ const Payment = () => {
     };
 
     async function getStripeApiKey() {
-        const { data } = await axios.get("/api/v1/stripeapikey");
+        const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/stripeapikey`, { withCredentials: true });
 
         setStripeApiKey(data.stripeApiKey);
         console.log(stripeApiKey);
@@ -29,12 +29,9 @@ const Payment = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                withCredentials: true
             };
-            const secretObject = await axios.post(
-                "/api/v1/payment/process",
-                paymentData,
-                config
-            );
+            const secretObject = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/payment/process`, paymentData, config);
 
             setClientSecret(secretObject.data.clientSecret);
         } catch (error) {

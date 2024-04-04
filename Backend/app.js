@@ -3,6 +3,8 @@ const cookieParser = require("cookie-parser");
 const errorMiddleware = require("./middleware/error");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
+const cors = require("cors");
+
 const app = express();
 
 
@@ -12,6 +14,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload())
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
+
+
+app.use(cors({
+    origin: "http://localhost:3000", // Add your frontend URL here
+    credentials: true, // Allow cookies to be sent with the request
+    methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
+}));
+
 
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config({ path: "Backend/config/config.env" });

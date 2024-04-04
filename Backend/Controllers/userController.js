@@ -47,6 +47,7 @@ exports.registerUser = async function (req, res, next) {
 exports.loginUser = async function (req, res, next) {
 
     try {
+        console.log("request lag rhi hai")
 
         const { email, password } = req.body;
 

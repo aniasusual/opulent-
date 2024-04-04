@@ -5,6 +5,7 @@ import MetaData from "../../components/layout/metadata/Metadata";
 import "./confirmOrder.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography } from "@material-ui/core";
+import axios from "axios"
 
 const ConfirmOrder = () => {
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
@@ -23,6 +24,42 @@ const ConfirmOrder = () => {
 
   const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
 
+  // function proceedToPayment() {
+  //   const data = {
+  //     subtotal,
+  //     shippingCharges,
+  //     tax,
+  //     totalPrice,
+  //   };
+
+  //   sessionStorage.setItem("orderInfo", JSON.stringify(data));
+
+  //   fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/payment/process`, {
+  //     method: "Post",
+  //     headers: {
+  //       "Content-type": "application/json",
+  //     },
+  //     // withCredentials: true,
+  //     body: JSON.stringify({
+  //       items: cartItems,
+  //       userData: user,
+  //       shippingInfo: shippingInfo,
+  //     }),
+  //   })
+  //     .then((res) => {
+  //       if (res.ok) {
+  //         return res.json();
+  //       }
+  //       return res.json().then((json) => Promise.reject(json));
+  //     })
+  //     .then(({ url }) => {
+  //       window.location = url;
+  //     })
+  //     .catch((e) => {
+  //       console.error(e.error);
+  //     });
+  // };
+
   function proceedToPayment() {
     const data = {
       subtotal,
@@ -33,30 +70,25 @@ const ConfirmOrder = () => {
 
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
 
-    fetch("/api/v1/payment/process", {
-      method: "Post",
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/v1/payment/process`, {
+      items: cartItems,
+      userData: user,
+      shippingInfo: shippingInfo,
+    }, {
+      withCredentials: true,
       headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        items: cartItems,
-        userData: user,
-        shippingInfo: shippingInfo,
-      }),
+        'Content-Type': 'application/json',
+      }
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return res.json().then((json) => Promise.reject(json));
-      })
-      .then(({ url }) => {
+      .then((response) => {
+        const { url } = response.data;
         window.location = url;
       })
-      .catch((e) => {
-        console.error(e.error);
+      .catch((error) => {
+        console.error(error);
       });
-  };
+  }
+
 
   return (
     <Fragment>
