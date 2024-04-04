@@ -41,13 +41,14 @@ function App() {
   useEffect(() => {
     console.log(user);
     store.dispatch(loadUser());
+    console.log("backend url", process.env.REACT_APP_BACKEND_URL);
     // console.log(user.role)
   }, [])
 
   const { loading, isAuthenticated, user } = useSelector((state) => state.user);
   // const navigate = useNavigate();
 
-  window.addEventListener("contextmenu", (e) => e.preventDefault());
+  // window.addEventListener("contextmenu", (e) => e.preventDefault());
 
 
   return (

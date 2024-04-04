@@ -22,7 +22,7 @@ const OrderSuccess = () => {
     try {
       dispatch({ type: CREATE_ORDER_REQUEST });
 
-      const response = await axios.get("/api/v1/newOrder");
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/newOrder`, { withCredentials: true });
       // console.log("response in OrderSuccess", response);
 
       const data = response.data.newOrder;

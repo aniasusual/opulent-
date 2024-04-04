@@ -15,7 +15,7 @@ exports.returnNewOrder = (req, res) => {
 
 exports.processPayment = async (req, res) => {
 
-    // console.log(req.body.userData._id);
+    console.log(req.body.userData._id);
     const customer = await stripe.customers.create({
         metadata: {
             userId: req.body.userData._id,
