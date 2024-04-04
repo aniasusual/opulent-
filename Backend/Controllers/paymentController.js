@@ -100,8 +100,10 @@ exports.processPayment = async (req, res) => {
                 }
             }),
             billing_address_collection: "required",
-            success_url: `${process.env.FRONTEND_URL}/payment/success`,
-            cancel_url: `${process.env.FRONTEND_URL}/cart`
+            // success_url: `${process.env.FRONTEND_URL}/payment/success`,
+            // cancel_url: `${process.env.FRONTEND_URL}/cart`
+            success_url: `https://660ed9e7987141235b1db971--thunderous-begonia-288545.netlify.app/payment/success`,
+            cancel_url: `https://660ed9e7987141235b1db971--thunderous-begonia-288545.netlify.app/cart`
         })
         res.json({
             url: session.url,
