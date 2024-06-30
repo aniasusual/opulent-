@@ -54,7 +54,7 @@ const Navbar = () => {
   }
 
   function scrollFunction() {
-    console.log(window.innerWidth)
+    // console.log(window.innerWidth)
     if (
       window.innerWidth <= 800 ||
       document.body.scrollTop > 50 ||
