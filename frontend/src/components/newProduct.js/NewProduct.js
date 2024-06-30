@@ -177,6 +177,7 @@ const NewProduct = () => {
                                 multiple
                                 required
                             />
+                            <span style={{ margin: "10px", textAlign: "center" }}>Max 2 image files</span>
                         </div>
 
                         <div id="createProductFormImage">

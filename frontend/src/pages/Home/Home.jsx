@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom'
 import Metadata from "../../components/layout/metadata/Metadata"
 import ShopFeatured from "../ShopFeatured/ShopFeatured"
 
+import j3 from "../../data/j3.jpg"
+
 const Home = () => {
   return (
     <div>
@@ -15,7 +17,7 @@ const Home = () => {
       <Metadata title="Opulent Ornaments" />
 
       <div className="homeSection1">
-        <img src="https://source.unsplash.com/random/900×700/?couples" alt="" />
+        <img src={j3} alt="" />
         <div>
           <h3>Your journey begins now</h3>
           <h1>Fall in love</h1>
@@ -23,7 +25,7 @@ const Home = () => {
         </div>
       </div>
 
-      <ShopFeatured/>
+      <ShopFeatured />
 
       <div className="homeSection2">
 

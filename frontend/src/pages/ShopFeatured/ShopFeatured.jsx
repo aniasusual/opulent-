@@ -15,7 +15,7 @@ const Shop = () => {
 
   useEffect(() => {
 
-    if(error){
+    if (error) {
       return alert.error(error);
     }
 
@@ -24,10 +24,11 @@ const Shop = () => {
   }, [dispatch, error, alert]);
 
 
+
   return (
 
     <div>
-      {loading ? (<Loader/>) : (
+      {loading ? (<Loader />) : (
         <div className='productPage'>
           <div className="productHead">
             <h1>Featured proucts</h1>
@@ -36,7 +37,7 @@ const Shop = () => {
           <div className='productContainer'>
 
             {products && products.map(product => (
-              <ProductCard product={product} />
+              <ProductCard key={product.id} product={product} />
             )
             )}
 

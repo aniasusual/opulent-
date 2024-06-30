@@ -59,7 +59,7 @@ export default function App() {
 
                 {products.map(product => {
                     return (
-                        <SwiperSlide>
+                        <SwiperSlide >
                             <img src={product.images[0].url} alt={product.category} className='imageCarousel2' />
                             <Link to={`/product/${product._id}`}><button>Buy item</button></Link>
 

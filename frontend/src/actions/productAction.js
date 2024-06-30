@@ -47,18 +47,52 @@ import axios from "axios";
 export const getProduct = (keyword = "", currentPage = "") => async (dispatch) => {
     try {
 
+        // dispatch({ type: ALL_PRODUCT_REQUESTS });
+
+        // // let link = `${process.env.REACT_APP_BACKEND_URL}/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`
+        // let link = `${process.env.REACT_APP_BACKEND_URL}/api/v1/products?keyword=${keyword}&page=${currentPage}`
+        // const { data } = await axios.get(link)
+
+        // localStorage.setItem("ProductsFeatured", JSON.stringify(data.products))
+
+        // dispatch({
+        //     type: ALL_PRODUCT_SUCCESS,
+        //     payload: data
+        // })
+
         dispatch({ type: ALL_PRODUCT_REQUESTS });
 
-        // let link = `${process.env.REACT_APP_BACKEND_URL}/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`
-        let link = `${process.env.REACT_APP_BACKEND_URL}/api/v1/products?keyword=${keyword}&page=${currentPage}`
-        const { data } = await axios.get(link)
+        let link = `${process.env.REACT_APP_BACKEND_URL}/api/v1/products?keyword=${keyword}&page=${currentPage}`;
 
+        // Check if the response is available in the cache
+        const cacheData = await caches.match(link);
+        if (cacheData) {
+            const data = await cacheData.json();
+            dispatch({
+                type: ALL_PRODUCT_SUCCESS,
+                payload: data
+            });
+            return;
+        }
+
+        // Fetch from network if not available in the cache
+        const { data } = await axios.get(link);
         dispatch({
             type: ALL_PRODUCT_SUCCESS,
             payload: data
-        })
-
+        });
     } catch (error) {
+        // let productCollection = localStorage.getItem("ProductsFeatured")
+        // if (productCollection) {
+        //     // console.log("lolu ram", productCollection)
+
+        //     dispatch({
+        //         type: ALL_PRODUCT_SUCCESS,
+        //         payload: JSON.parse(productCollection)
+        //     })
+        // }
+
+
         dispatch({
             type: ALL_PRODUCT_FAIL,
             payload: error.response.data.message
@@ -72,7 +106,7 @@ export const getAdminProduct = () => async (dispatch) => {
         dispatch({ type: ADMIN_PRODUCT_REQUEST });
 
         const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/v1/admin/products`, { withCredentials: true });
-        console.log(data.products);
+        // console.log(data.products);
 
         dispatch({
             type: ADMIN_PRODUCT_SUCCESS,
