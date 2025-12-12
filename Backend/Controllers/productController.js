@@ -2,6 +2,7 @@ const productModel = require('../models/productModel.js');
 const ApiFeatures = require('../utils/apifeatures.js')
 const ErrorHandler = require('../utils/errorHandler.js');
 const cloudinary = require("cloudinary");
+const { cacheHelper } = require('../utils/redisClient');
 
 exports.getAllProducts = async (req, res, next) => {
     try {
@@ -13,24 +14,17 @@ exports.getAllProducts = async (req, res, next) => {
         const products = await apiFeature.query;
         // const books = await productModel.find();
 
-        if (products.length != 0) {
-            res.json({
-                status: "success",
-                products,
-                productsCount,
-                resultPerPage
-            })
-        }
+        // Return empty array instead of error when no products found
+        res.json({
+            status: "success",
+            products: products || [],
+            productsCount,
+            resultPerPage
+        })
 
-        else {
-            // res.json({
-            //     status: "fail",
-            //     message: "No product found!"
-            // })
-            return next(new ErrorHandler("No product found!", 500));
-        }
     } catch (error) {
-        console.log(error);
+        console.log("Error in getAllProducts:", error);
+        return next(new ErrorHandler(error.message || "Failed to fetch products", 500));
     }
 }
 
@@ -83,6 +77,10 @@ exports.createProduct = async (req, res, next) => {
         req.body.user = req.user.id;
 
         const product = await productModel.create(req.body);
+
+        // Invalidate product list cache
+        await cacheHelper.delPattern('products:*');
+        console.log('Product list cache invalidated after product creation');
 
         res.status(201).json({
             success: true,
@@ -144,6 +142,11 @@ exports.updateProduct = async (req, res, next) => {
             useFindAndModify: false,
         });
 
+        // Invalidate cache for this product and product lists
+        await cacheHelper.del(`product:${req.params.id}`);
+        await cacheHelper.delPattern('products:*');
+        console.log(`Cache invalidated for product:${req.params.id} and product lists`);
+
         res.status(200).json({
             success: true,
             product,
@@ -170,6 +173,12 @@ exports.deleteProduct = async (req, res, next) => {
 
         // Use deleteOne method to delete the product document
         await productModel.deleteOne({ _id: req.params.id });
+
+        // Invalidate cache for this product and product lists
+        await cacheHelper.del(`product:${req.params.id}`);
+        await cacheHelper.delPattern('products:*');
+        await cacheHelper.delPattern(`reviews:product:${req.params.id}`);
+        console.log(`Cache invalidated for product:${req.params.id}, product lists, and reviews`);
 
         res.status(200).json({
             success: true,
@@ -338,6 +347,12 @@ exports.createProductReview = async function (req, res, next) {
 
     await product.save({ validateBeforeSave: false });
 
+    // Invalidate cache for product and reviews
+    await cacheHelper.del(`product:${productId}`);
+    await cacheHelper.del(`reviews:product:${productId}`);
+    await cacheHelper.delPattern('products:*');
+    console.log(`Cache invalidated for product:${productId}, reviews, and product lists after review update`);
+
     res.status(200).json({
         success: true,
     });
@@ -399,6 +414,12 @@ exports.deleteReview = async function (req, res, next) {
                 useFindAndModify: false,
             }
         );
+
+        // Invalidate cache for product and reviews
+        await cacheHelper.del(`product:${req.query.productId}`);
+        await cacheHelper.del(`reviews:product:${req.query.productId}`);
+        await cacheHelper.delPattern('products:*');
+        console.log(`Cache invalidated for product:${req.query.productId}, reviews, and product lists after review deletion`);
 
         res.status(200).json({
             success: true,
