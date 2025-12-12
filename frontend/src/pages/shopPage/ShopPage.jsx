@@ -32,10 +32,7 @@ const Shop = () => {
 
   useEffect(() => {
     if (error) {
-      // alert.error(error);
-      return () => {
-        alert.error(error);
-      };
+      alert.error(error);
     }
 
     dispatch(getProduct(keyword, currentPage));

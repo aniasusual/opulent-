@@ -61,8 +61,9 @@ const UserOptions = ({ user }) => {
           <img className="speedDialIcon" src={user.avatar.url} alt="Profile" />
         }
       >
-        {options.map((item) => (
+        {options.map((item, index) => (
           <SpeedDialAction
+            key={index}
             icon={item.icon}
             tooltipTitle={item.name}
             onClick={item.func}

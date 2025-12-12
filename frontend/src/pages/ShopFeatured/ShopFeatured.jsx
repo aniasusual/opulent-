@@ -16,7 +16,7 @@ const Shop = () => {
   useEffect(() => {
 
     if (error) {
-      return alert.error(error);
+      alert.error(error);
     }
 
     console.log("dispatch occured");

@@ -55,26 +55,32 @@ const Navbar = () => {
 
   function scrollFunction() {
     // console.log(window.innerWidth)
+    const logoElement = document.getElementById("logotext");
+    if (!logoElement) return; // Guard against null element
+
     if (
       window.innerWidth <= 800 ||
       document.body.scrollTop > 50 ||
       document.documentElement.scrollTop > 50
     ) {
-      document.getElementById("logotext").style.fontSize = "2vh";
+      logoElement.style.fontSize = "2vh";
     }
     else {
-      document.getElementById("logotext").style.fontSize = "4vh";
+      logoElement.style.fontSize = "4vh";
     }
   }
 
   window.onchange = function () {
+    const logoElement = document.getElementById("logotext");
+    if (!logoElement) return; // Guard against null element
+
     if (
       window.innerWidth <= 600
     ) {
-      document.getElementById("logotext").style.fontSize = "3vh";
+      logoElement.style.fontSize = "3vh";
     }
     else {
-      document.getElementById("logotext").style.fontSize = "4vh";
+      logoElement.style.fontSize = "4vh";
     }
   };
 

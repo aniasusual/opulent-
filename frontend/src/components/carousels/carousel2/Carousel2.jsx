@@ -23,7 +23,16 @@ export default function App() {
   const dispatch = useDispatch();
   const { loading, error, products, productsCount } = useSelector((state) => state.products);
 
-
+  // Handle cases where products is undefined or empty
+  if (!products || products.length === 0) {
+    return (
+      <div className='carousel2'>
+        <div style={{ textAlign: 'center', padding: '2rem' }}>
+          {loading ? 'Loading products...' : 'No products available'}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className='carousel2'>
@@ -55,9 +64,9 @@ export default function App() {
         className="mySwiper"
       >
 
-        {products.map(product => {
+        {products.map((product, index) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={product._id || index}>
               <img src={product.images[0].url} alt={product.category} className='imageCarousel2' />
               <div>
                 <h2>{product.category}</h2>
